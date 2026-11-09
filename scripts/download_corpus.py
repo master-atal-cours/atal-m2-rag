@@ -6,18 +6,7 @@ Usage :
     python scripts/download_corpus.py --check       # vérifie les fichiers présents, sans réseau
     python scripts/download_corpus.py --force       # re-télécharge tout
     python scripts/download_corpus.py --only cnil   # seulement les chemins contenant "cnil"
-    python scripts/download_corpus.py --zip corpus.zip
-                                                    # installe depuis une archive (miroir
-                                                    # fourni par l'enseignant si une source
-                                                    # officielle est indisponible)
-
-Pour l'enseignant :
-    python scripts/download_corpus.py --update-hashes
-                                                    # recalcule les sha256 du manifeste
-    python scripts/download_corpus.py --make-zip corpus.zip
-                                                    # crée l'archive miroir
-
-N'utilise que la bibliothèque standard (Python >= 3.11).
+    python scripts/download_corpus.py --zip corpus.zip   # depuis une archive
 """
 
 from __future__ import annotations

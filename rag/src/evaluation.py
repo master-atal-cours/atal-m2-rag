@@ -4,14 +4,12 @@ Onglet « Évaluation » de l'interface, ou en ligne de commande : rag eval [-v]
 
 Chaque question est notée automatiquement :
 
-- **réponse** : la réponse contient-elle les éléments attendus (``expect``) ?
-  Chaque élément est une chaîne, une liste d'alternatives, ou une expression
-  régulière préfixée par « re: ». La comparaison ignore la casse, les accents et
-  les séparateurs de milliers (« 35 000 000 » = « 35000000 »).
-  Pour les questions sans réponse dans le corpus (``abstain = true``), le
-  système doit dire qu'il n'a pas trouvé l'information.
-- **sources** : les documents attendus (``sources``) figurent-ils parmi les
-  passages fournis au LLM ? (diagnostic : erreur de recherche ou de génération ?)
+- **réponse** : présence des éléments attendus (``expect``) : chaîne, liste
+  d'alternatives ou expression régulière préfixée par « re: ». La comparaison
+  ignore la casse, les accents et les séparateurs de milliers. Pour
+  ``abstain = true``, le système doit dire qu'il n'a pas trouvé l'information.
+- **sources** : présence des documents attendus (``sources``) parmi les passages
+  fournis au LLM, pour distinguer erreur de recherche et erreur de génération.
 
 Les résultats sont enregistrés dans runs/.
 """

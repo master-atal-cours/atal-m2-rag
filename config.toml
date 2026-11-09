@@ -1,5 +1,4 @@
-# Configuration du TP. Ne modifiez pas ce fichier : mettez vos réglages dans
-# config.local.toml (ignoré par git), avec seulement les clés à changer.
+# Ne pas modifier : mettre les clés à changer dans config.local.toml (ignoré par git).
 
 [api]                   # par défaut : Ollama sur votre machine
 host = "localhost"

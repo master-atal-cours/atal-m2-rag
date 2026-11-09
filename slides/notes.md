@@ -203,7 +203,7 @@ intègre à la présentation.
 - L'étape 2 télécharge le corpus avec `uv run python scripts/download_corpus.py`, qui doit afficher **48/48 fichiers disponibles** (10 Mo) dans `data/corpus/`.
   - Idéalement, les étudiants ont lancé les étapes 1 et 2 pendant l'introduction.
 - L'étape 3 sert le LLM et dépend de chacun.
-  - Avec Ollama, `scripts/setup_ollama.py` vérifie l'installation (sinon il affiche la commande), lance le serveur, télécharge les deux modèles et les essaie, et `OLLAMA.md` détaille les problèmes courants.
+  - Avec Ollama, `scripts/setup_ollama.py` vérifie l'installation (sinon il affiche la commande), lance le serveur, télécharge les deux modèles et les essaie, et `OLLAMA.md` donne l'installation et le choix du modèle.
   - Sans GPU, un modèle de 9 milliards de paramètres sera lent : l'option `--model qwen3.5:4b` télécharge un modèle plus petit et l'indique dans `config.local.toml`.
   - Avec un serveur de l'université, on met son adresse dans `config.local.toml` plutôt que dans `config.toml`, car ce fichier n'est pas suivi par git et les solutions ne le remplacent pas.
 - L'étape 4 vérifie avec `uv run rag check`, qui doit afficher **deux coches**, une pour le LLM et une pour les embeddings en dimension 1024.

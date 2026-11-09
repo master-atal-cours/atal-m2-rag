@@ -1,16 +1,18 @@
-# Ollama sur votre machine
+## Installation
 
-Si votre université ne vous fournit pas de serveur LLM, faites tourner les modèles du TP
-sur votre machine avec [Ollama](https://ollama.com).
+| Système | Commande |
+|---|---|
+| Windows | `winget install Ollama.Ollama`, ou https://ollama.com/download |
+| macOS | `brew install ollama`, ou https://ollama.com/download |
+| Linux | `curl -fsSL https://ollama.com/install.sh \| sh` |
 
-## En une commande
+## Préparation
 
 ```bash
 uv run python scripts/setup_ollama.py
 ```
 
-Le script vérifie qu'Ollama est installé (sinon, il affiche la commande d'installation),
-lance le serveur s'il ne tourne pas, télécharge les deux modèles, puis les essaie :
+Le script lance le serveur, télécharge les modèles et les essaie :
 
 ```
 1. Installation
@@ -26,52 +28,17 @@ lance le serveur s'il ne tourne pas, télécharge les deux modèles, puis les es
   ✓ qwen3.5:9b répond « OK » (3.3 s, chargement compris)
   ✓ contexte de 4096 tokens
   ✓ bge-m3 : vecteurs de dimension 1024 (2.1 s)
-
-Ollama est prêt. Ensuite : uv run rag check, puis uv run rag
 ```
 
-La configuration par défaut du TP vise déjà Ollama sur `localhost:11434` : rien d'autre à
-régler.
+## Modèles
 
-## Installer Ollama
-
-| Système | Commande |
-|---|---|
-| Windows | `winget install Ollama.Ollama`, ou l'installeur de https://ollama.com/download |
-| macOS | `brew install ollama`, ou l'application de https://ollama.com/download |
-| Linux | `curl -fsSL https://ollama.com/install.sh \| sh` |
-
-Sous Windows et macOS, l'application lance le serveur toute seule ; sous Linux, le script
-d'installation en fait un service.
-
-## Quel modèle de chat ?
-
-| Votre machine | Modèle | Téléchargement |
+| Machine | Modèle | Taille |
 |---|---|---|
-| GPU avec 8 Go de mémoire ou plus, ou Mac Apple Silicon | `qwen3.5:9b` (défaut) | 6,6 Go |
-| petit GPU, ou pas de GPU | `qwen3.5:4b` | environ 4 Go |
-
-Pour le modèle plus petit :
+| GPU 8 Go+ ou Mac Apple Silicon | `qwen3.5:9b` (défaut) | 6,6 Go |
+| petit GPU ou pas de GPU | `qwen3.5:4b` | 4 Go |
 
 ```bash
 uv run python scripts/setup_ollama.py --model qwen3.5:4b
 ```
 
-Le script l'indique alors dans `config.local.toml` (`[llm] model`). Les scores de référence
-du cours ont été mesurés avec `qwen3.5:9b` : attendez-vous à quelques points de moins.
-Le modèle d'embeddings, `bge-m3` (1,2 Go), est le même pour tous.
-
-## Problèmes courants
-
-- **Ollama n'est pas reconnu après l'installation** : ouvrez un nouveau terminal.
-- **Les réponses sont très lentes** : sans GPU, le modèle tourne sur le processeur. Passez à
-  `qwen3.5:4b`.
-- **Erreur de mémoire au chargement du modèle** : même remède, un modèle plus petit.
-- **Le port 11434 est déjà utilisé** : un serveur Ollama tourne déjà, c'est bon signe.
-- **Les réponses ignorent une partie des sources** : le contexte du modèle est peut-être trop
-  court (le script l'affiche ; 4 096 tokens suffisent pour le TP). Pour l'agrandir, définissez
-  `OLLAMA_CONTEXT_LENGTH=8192` avant de lancer le serveur, puis redémarrez Ollama :
-  - Windows : `setx OLLAMA_CONTEXT_LENGTH 8192`, puis quitter et relancer l'application ;
-  - macOS : `launchctl setenv OLLAMA_CONTEXT_LENGTH 8192`, puis relancer l'application ;
-  - Linux : `sudo systemctl edit ollama`, ajouter `Environment="OLLAMA_CONTEXT_LENGTH=8192"`
-    dans la section `[Service]`, puis `sudo systemctl restart ollama`.
+Le script écrit alors le modèle dans `config.local.toml`. Embeddings : `bge-m3` (1,2 Go) dans tous les cas.

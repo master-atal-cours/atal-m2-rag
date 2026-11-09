@@ -1,13 +1,7 @@
-"""Prépare Ollama pour le TP, sur votre machine.
+"""Prépare Ollama pour le TP : serveur, téléchargement et essai des modèles.
 
     python scripts/setup_ollama.py                       # qwen3.5:9b et bge-m3
-    python scripts/setup_ollama.py --model qwen3.5:4b    # sans GPU ou avec peu de mémoire vidéo
-
-Étapes : vérifier qu'Ollama est installé, lancer le serveur s'il ne tourne pas,
-télécharger les modèles, puis les essayer. Si vous choisissez un autre modèle de
-chat, le script l'indique dans config.local.toml. Bibliothèque standard uniquement.
-
-Détails et problèmes courants : OLLAMA.md
+    python scripts/setup_ollama.py --model qwen3.5:4b    # sans GPU
 """
 
 from __future__ import annotations
@@ -113,7 +107,7 @@ def pull(model: str, present: set[str]) -> None:
         return
     print(f"  téléchargement de {model}…")
     if subprocess.run(["ollama", "pull", model], check=False).returncode != 0:
-        fail(f"échec du téléchargement de {model} : le nom est-il correct ?")
+        fail(f"échec du téléchargement de {model} : vérifiez le nom")
     ok(f"{model} téléchargé")
 
 
@@ -132,7 +126,7 @@ def try_models(base: str, model: str, embedding: str) -> None:
         if loaded["name"] in (model, f"{model}:latest") and loaded.get("context_length"):
             context = loaded["context_length"]
             if context < 4096:
-                warn(f"contexte de {context} tokens : trop court, voir OLLAMA.md (OLLAMA_CONTEXT_LENGTH)")
+                warn(f"contexte de {context} tokens : trop court, définir OLLAMA_CONTEXT_LENGTH=8192 et relancer Ollama")
             else:
                 ok(f"contexte de {context} tokens")
     start = time.time()
