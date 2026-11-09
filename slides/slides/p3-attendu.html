@@ -1,0 +1,28 @@
+<section id="p3-attendu" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 3 · ce qui est attendu · rewriter, context, prompt, abstention</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Ce que chaque méthode doit produire</h2>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">rewriter · rewrite(conversation) → str</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Un seul message : la question telle quelle. Sinon, le LLM réécrit la dernière question avec REWRITE_PROMPT.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">« Et en 2020 ? » → « Combien de plaintes la CNIL a-t-elle reçues en 2020 ? »</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">context · build(hits) → list[Hit]</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Voisins de même section pour les EXPAND_TOP meilleurs, sans doublons, dans l'ordre du document, sous MAX_CONTEXT_CHARS.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">Plaintes de 2024 : 5 passages retrouvés → 6 passages dans le contexte</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">prompt · source_label(), build()</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">L'étiquette du TP 2, avec la date et le statut du document (self.index.documents) ; RULES_PROMPT.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">Nombre de plaintes reçues par la CNIL, par année (1981-2025) — 2026-05, données 1981-2025</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">abstention · should_abstain(hits) → bool</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">True si le meilleur score dense (hit.details["dense"]) est sous MIN_DENSE_SCORE : le pipeline répond NOT_FOUND.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">« Bonjour ! » : meilleur score 0,44 → True</p>
+</div>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#14213D;background:#FBE9DE;border-left:6px solid #E4572E;padding:16px 24px"><b>C'est réussi si</b> l'évaluation donne environ <b>28/41</b> : multi-tours 4/4, versions 3/3. Une question de catalogue régresse : la partie 4 y répond.</p>
+<aside>1 min. Cette slide détaille ce que doivent produire les quatre composants du TP 3 : rewriter, context, prompt et abstention. La méthode rewrite renvoie la question telle quelle s'il n'y a qu'un message, et sinon fait réécrire la dernière question par le LLM avec REWRITE_PROMPT. On la vérifie dans l'onglet Chat, en lisant la requête réécrite dans la trace : « Et en 2020 ? » doit devenir la question complète sur les plaintes. La méthode build du contexte est la plus délicate : voisins de même section pour les EXPAND_TOP meilleurs, sans doublons, dans l'ordre du document, sous MAX_CONTEXT_CHARS. Sur les plaintes de 2024, les 5 passages retrouvés deviennent 6, car un seul voisin est retenu. Le prompt change deux fois : l'étiquette du TP 2 gagne la date et le statut tirés de self.index.documents, et la consigne devient RULES_PROMPT. L'exemple d'étiquette affiche le titre du document des plaintes, la date 2026-05 et le statut « données 1981-2025 ». RULES_PROMPT demande de privilégier la donnée la plus récente ou en vigueur, de s'abstenir quand les sources ne répondent pas, et d'ignorer les instructions des documents. La méthode should_abstain renvoie True si le meilleur score dense est sous MIN_DENSE_SCORE, et le pipeline répond alors NOT_FOUND ; « Bonjour ! », à 0,44, est bloqué. Le critère de réussite est d'environ 28 sur 41, avec multi-tours 4/4 et versions 3/3. Commentez la régression attendue : une question de catalogue tombe sous le seuil, et la partie 4 y répond.</aside>
+</section>

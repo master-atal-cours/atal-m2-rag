@@ -1,0 +1,28 @@
+<section id="p4-attendu" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 4 · ce qui est attendu · router, catalog, sql, prompt</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Ce que chaque méthode doit produire</h2>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">router · route(conversation) → str</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Les quatre routes dans Route ; ROUTER_PROMPT et la fin de la conversation, via self.llm.json(…, Route).</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">contrôles en 2025 → donnees · documents de l'Insee → catalogue · « Merci beaucoup ! » → conversation · article 50 → documents</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">catalog · answer(conversation)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">La liste des documents (chemin, format, titre, source, date) dans CATALOG_PROMPT, puis générer.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">« Combien de documents contient la base documentaire ? » → « La base documentaire contient 48 documents. »</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">sql · answer(conversation, question)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Tables utiles, SQL écrit par le LLM, exécution ; si erreur, vide ou zéro : un second essai ; sinon None (repli sur les documents).</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#2563A6">SELECT COUNT(*) FROM cnil_controles_2025<br>WHERE secteur_du_controle = 'Santé';  → 42</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">prompt · build_direct(conversation)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Route « conversation » : DIRECT_PROMPT, puis la conversation, sans recherche.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">« Traduis ta réponse en anglais. » → « The GDPR has been applicable since May 25, 2018 [1]. »</p>
+</div>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#14213D;background:#FBE9DE;border-left:6px solid #E4572E;padding:16px 24px"><b>C'est réussi si</b> l'évaluation donne environ <b>37/41</b> : agrégations, catalogue et conversation au complet. Les 4 échecs restants sont à analyser.</p>
+<aside>1 min. Cette slide détaille ce que chaque méthode du TP 4 doit produire, dans router, catalog, sql et prompt. Le routeur, route(conversation), met les quatre routes dans Route et appelle self.llm.json avec ROUTER_PROMPT et la fin de la conversation. Les quatre exemples sont des sorties réelles : contrôles en 2025 donne « donnees », documents de l'Insee donne « catalogue », « Merci beaucoup ! » donne « conversation », et l'article 50 donne « documents ». Le catalogue, answer(conversation), place la liste des documents (chemin, format, titre, source, date) dans CATALOG_PROMPT, puis génère : la base contient 48 documents. L'outil SQL, answer(conversation, question), est le cœur du TP, et sa docstring en détaille les étapes. Il choisit les tables, fait écrire le SQL et l'exécute ; après une erreur, un vide ou un zéro, il réessaie une fois, sinon il renvoie None et le pipeline se rabat sur les documents. La trace doit contenir la requête SQL, qui est l'équivalent des citations pour les données. build_direct(conversation) sert la route conversation avec DIRECT_PROMPT puis la conversation, sans recherche, comme pour la traduction en anglais affichée. Le critère de réussite est d'environ 37 sur 41, avec les agrégations, le catalogue et la conversation au complet. Faites analyser les quatre échecs avec l'onglet Prompt : une question factuelle envoyée au SQL, une ligne de tableau non ramenée, et deux synthèses entre documents. Faites inventer des questions pour voir ce qui casse : c'est une bonne transition vers le bilan.</aside>
+</section>

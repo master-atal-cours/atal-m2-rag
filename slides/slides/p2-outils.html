@@ -1,0 +1,38 @@
+<section id="p2-outils" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 2 · ce qui est fourni</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Les briques du TP 2</h2>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
+<div style="background:#14213D;border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">Une ligne de tableau, avec son en-tête</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">serialize_row(["Pays", "2024", "2025"],</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;["Danemark", "28", "42"])</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># 'Pays: Danemark | 2024: 28 | 2025: 42'</p>
+</div>
+<div style="background:#14213D;border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">Des mots normalisés, pour BM25</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">q = "Que prévoit l'article 50 du règlement ?"</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">tokenize(q)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># ['prevoi', 'articl', '50', 'reglem']</p>
+</div>
+<div style="background:#14213D;border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">Un classement BM25</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">from rank_bm25 import BM25Okapi</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">bm25 = BM25Okapi([tokenize(t) for t in textes])</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">bm25.get_scores(tokenize("amende 35 000 000"))</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># [2.195, 0, 0] : un score par texte</p>
+</div>
+<div style="background:#14213D;border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">Déjà là, à réutiliser</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">split_fixed(texte, MAX_CHARS)  <span style="color:#8C99B8"># TP 1</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">chunk.meta["title"]  <span style="color:#8C99B8"># pour l'étiquette</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">Hit(chunk, 0.0325,</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;&#160;&#160;&#160;details={"dense": 0.677, "bm25": 17.789})</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;gap:24px;align-items:center;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:18px 28px">
+<p style="font-size:26px;font-weight:600;color:#14213D">Fusion RRF</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:26px;color:#B5401E">score = Σ 1 / (RRF_K + rang)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">premier en dense et premier en BM25 : 1/61 + 1/62 = 0,0325</p>
+</div>
+<aside>1 min. Cette slide présente les briques fournies pour le TP 2. Le premier bloc montre serialize_row, qui transforme une ligne de tableau en texte en gardant son en-tête : « Pays: Danemark | 2024: 28 | 2025: 42 ». C'est exactement ce qui manquait au CSV des plaintes en phase 1, où le LLM a pris la valeur de l'année voisine. Le deuxième bloc montre tokenize, qui prépare le texte pour BM25 : minuscules, sans accents ni mots vides, mots tronqués à six lettres, nombres conservés. Sur « Que prévoit l'article 50 du règlement ? », on obtient prevoi, articl, 50 et reglem, ce qui regroupe les variantes comme « règlement » et « règlements ». Le troisième bloc montre BM25Okapi, de la bibliothèque rank_bm25, qui prend des textes découpés en mots ; get_scores renvoie un score par texte, nul quand aucun mot ne correspond. Sur l'exemple, seule la phrase sur les amendes contient « amende » et « 35 000 000 », d'où 2,195, 0 et 0. Le bloc « Déjà là » rappelle que split_fixed du TP 1 sert encore à couper un paragraphe trop long, que chunk.meta["title"] fournit l'étiquette de la source, et que Hit.details range les scores intermédiaires. Le dernier bloc rappelle la fusion RRF : seul le rang compte, car les scores bruts ne sont pas comparables (cosinus borné, BM25 sans borne). Un passage premier des deux classements obtient 1/61 + 1/62, soit 0,0325 : c'est le cas réel du CSV des plaintes pour 2024.</aside>
+</section>

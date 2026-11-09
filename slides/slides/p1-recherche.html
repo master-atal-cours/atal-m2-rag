@@ -1,0 +1,76 @@
+<section id="p1-recherche" data-transition="fade" style="display:flex; flex-direction:column; gap:32px; padding:128px 128px 160px; background:#f7f5f0">
+  <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#b5401e">Recherche · à chaque question</p>
+  <h2 style="font-family:'Space Grotesk', Arial, sans-serif; font-size:64px; font-weight:600; line-height:1.1; color:#14213d">Les k passages les plus proches de la question</h2>
+  <div style="display:flex; flex-direction:row; gap:56px">
+    <div style="width:600px; display:flex; flex-direction:column; gap:24px">
+      <p style="padding:24px 28px; font-family:Inter, Arial, sans-serif; font-size:28px; line-height:1.4; color:#14213d; background:#fdfcf9; border:1px solid #e2ded5; border-radius:16px">« Quel est le montant maximal des amendes prévues en cas de recours à une pratique d'IA interdite ? »</p>
+      <div style="display:flex; flex-direction:column; gap:6px; padding:28px 32px; background:#14213d; border-radius:16px">
+        <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; line-height:1.5; color:#f7f5f0">q = encode_query(question)</p>
+        <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; line-height:1.5; color:#f7f5f0">scores = vectors @ q</p>
+        <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; line-height:1.5; color:#f7f5f0">top = argsort(-scores)[:k]</p>
+        <p style="font-family:'JetBrains Mono', 'Courier New', monospace; font-size:24px; line-height:1.5; color:#8c99b8"># 2 661 produits scalaires</p>
+      </div>
+      <p style="font-family:Inter, Arial, sans-serif; font-size:26px; line-height:1.4; color:#475467">Le premier résultat vient de la <b>proposition de 2021</b> (30 M€ ou 6 %), pas du règlement adopté en 2024 (35 M€ ou 7 %) : la similarité ne sait rien des versions.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; flex:1">
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#b5401e">1 · proposition</p>
+        <div style="width:619px; height:30px; display:flex; flex-direction:column; background:#e4572e; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-variant-numeric:tabular-nums; color:#14213d">0,706</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#2563a6">2 · règlement</p>
+        <div style="width:552px; height:30px; display:flex; flex-direction:column; background:#2563a6; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-variant-numeric:tabular-nums; color:#14213d">0,689</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#b5401e">3 · proposition</p>
+        <div style="width:508px; height:30px; display:flex; flex-direction:column; background:#e4572e; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-variant-numeric:tabular-nums; color:#14213d">0,678</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#2563a6">4 · règlement</p>
+        <div style="width:476px; height:30px; display:flex; flex-direction:column; background:#2563a6; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-variant-numeric:tabular-nums; color:#14213d">0,670</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#2563a6">5 · règlement</p>
+        <div style="width:413px; height:30px; display:flex; flex-direction:column; background:#2563a6; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-variant-numeric:tabular-nums; color:#14213d">0,654</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center; padding:6px 0 0; border-top:3px dashed #14213d">
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; font-weight:600; color:#14213d">k = 5 : seuls ces passages vont au LLM</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center; opacity:0.45">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#b5401e">6 · proposition</p>
+        <div style="width:373px; height:30px; display:flex; flex-direction:column; background:#e4572e; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; color:#14213d">0,644</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center; opacity:0.45">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#b5401e">7 · proposition</p>
+        <div style="width:337px; height:30px; display:flex; flex-direction:column; background:#e4572e; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; color:#14213d">0,635</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center; opacity:0.45">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#2563a6">8 · règlement</p>
+        <div style="width:302px; height:30px; display:flex; flex-direction:column; background:#2563a6; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; color:#14213d">0,626</p>
+      </div>
+      <div style="display:flex; flex-direction:row; gap:16px; align-items:center; opacity:0.45">
+        <p style="width:240px; font-family:Inter, Arial, sans-serif; font-size:24px; color:#b5401e">9 · proposition</p>
+        <div style="width:266px; height:30px; display:flex; flex-direction:column; background:#e4572e; border-radius:6px">
+        </div>
+        <p style="font-family:Inter, Arial, sans-serif; font-size:24px; color:#14213d">0,617</p>
+      </div>
+    </div>
+  </div>
+  <aside>2 min. Cette slide montre la recherche, faite à chaque question : on garde les k passages les plus proches. Lisez la question d'exemple : « Quel est le montant maximal des amendes prévues en cas de recours à une pratique d'IA interdite ? ». Commentez les trois lignes de code. encode_query encode le dernier message avec le même modèle que les passages. vectors @ q calcule les 2 661 produits scalaires d'un coup, en un produit matrice-vecteur. argsort(-scores)[:k] trie les scores par ordre décroissant et garde les k meilleurs. Montrez le classement de droite, qui donne les vrais scores de l'index de la phase 1 pour cette question. Avec k = 5, seuls les cinq premiers passages vont au LLM, les suivants (de 0,644 à 0,617) sont écartés. Première remarque : les écarts sont minuscules (0,706 contre 0,689), donc le classement dense est fragile. Seconde remarque : le premier résultat vient de la proposition de 2021 (30 M€ ou 6 %), pas du règlement adopté en 2024 (35 M€ ou 7 %). Les deux textes se ressemblent beaucoup, et la similarité ne sait rien des versions. Le LLM recevra les deux versions mélangées. Concluez sur k : c'est un compromis, car trop petit on rate l'information, trop grand on noie le modèle dans le bruit.</aside>
+</section>

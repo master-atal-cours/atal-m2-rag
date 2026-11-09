@@ -1,0 +1,18 @@
+<section id="p2-echecs" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Anatomie d'un échec</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Le modèle s'abstient… parce que la recherche a échoué</h2>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:28px">
+<p style="font-size:28px;font-weight:600;line-height:1.35;color:#14213D">« Que prévoit l'article 50 du règlement sur l'IA ? »</p>
+<p style="font-size:28px;font-weight:600;line-height:1.35;color:#14213D">« Montant total des amendes de la CNIL en 2023 ? »</p>
+<p style="font-size:28px;font-weight:600;line-height:1.35;color:#14213D">« Numéro de la délibération sur les systèmes d'IA ? »</p>
+<p style="font-size:26px;line-height:1.4;color:#475467;background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:24px 28px"><i>« Il n'est pas possible de répondre : ce texte ne contient aucune mention relative à un article 50. »</i></p>
+<p style="font-size:26px;line-height:1.4;color:#475467;background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:24px 28px"><i>« Il n'est pas possible de donner un montant total unique… »</i> puis une liste de sanctions individuelles.</p>
+<p style="font-size:26px;line-height:1.4;color:#475467;background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:24px 28px"><i>« Il n'est pas possible de donner le numéro exact de la délibération. »</i></p>
+<p style="font-size:26px;line-height:1.4;color:#14213D;border-left:6px solid #E4572E;padding:4px 0 4px 20px">Aucun morceau ne porte le titre « Article 50 », et la recherche dense ne distingue pas un numéro d'un autre.</p>
+<p style="font-size:26px;line-height:1.4;color:#14213D;border-left:6px solid #E4572E;padding:4px 0 4px 20px">Le CSV « TOTAL;36000;33000;… » n'évoque rien pour un embedding : il n'est jamais retrouvé.</p>
+<p style="font-size:26px;line-height:1.4;color:#14213D;border-left:6px solid #E4572E;padding:4px 0 4px 20px">Le bon document est retrouvé, mais pas le morceau qui contient « n° 2024-011 ».</p>
+</div>
+<div style="flex:1"></div>
+<p style="font-size:28px;line-height:1.4;color:#14213D">Un modèle prudent ne répond pas sans source. <b>Ces échecs se corrigent en amont</b> : lecture, découpage, recherche.</p>
+<aside>2 min. Cette slide dissèque trois échecs réels de la phase 1, avec les réponses produites par le modèle. Le point commun est que le modèle ne ment pas : il dit qu'il ne trouve pas, parce que la recherche ne lui a pas donné le bon passage. Pour l'article 50 du règlement sur l'IA, le modèle répond que le texte ne mentionne aucun article 50. Aucun morceau ne porte le titre « Article 50 », et la recherche dense ne distingue pas un numéro d'un autre, par exemple 50 et 52. Pour le montant total des amendes de la CNIL en 2023, le modèle refuse de donner un total et liste des sanctions individuelles. Le CSV « TOTAL;36000;33000;… » est une suite de nombres dont l'embedding ne ressemble à aucune question : il n'est jamais retrouvé. Pour le numéro de la délibération sur les systèmes d'IA, le modèle dit ne pas pouvoir le donner. Le bon document est retrouvé, mais pas le morceau qui contient « n° 2024-011 ». La conclusion est qu'un modèle prudent ne répond pas sans source, et que ces échecs se corrigent en amont : lecture, découpage, recherche. Si l'on propose d'augmenter k, il faut répondre que le bon passage n'est souvent pas dans les 20 premiers, et que plus de passages apporte plus de bruit.</aside>
+</section>

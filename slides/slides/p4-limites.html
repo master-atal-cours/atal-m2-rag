@@ -1,0 +1,35 @@
+<section id="p4-limites" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Limites de la recherche</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Ce que cinq passages ne peuvent pas contenir</h2>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:32px">
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#14213D">« Combien de contrôles dans la santé en 2025 ? »</p>
+<svg aria-label="Grille de 323 cases représentant les contrôles de 2025, dont une trentaine seulement sont visibles par le LLM" width="456" height="330" viewBox="0 0 456 330" style="width:456px;height:330px">
+<defs><pattern id="g" width="24" height="19" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="20" height="15" rx="3" fill="#D0D5DD"/></pattern></defs>
+<rect x="0" y="0" width="456" height="323" fill="url(#g)"/>
+<rect x="48" y="38" width="140" height="15" rx="3" fill="#E4572E"/>
+<rect x="216" y="114" width="140" height="15" rx="3" fill="#E4572E"/>
+<rect x="0" y="171" width="140" height="15" rx="3" fill="#E4572E"/>
+<rect x="288" y="228" width="140" height="15" rx="3" fill="#E4572E"/>
+<rect x="96" y="285" width="140" height="15" rx="3" fill="#E4572E"/>
+</svg>
+<p style="font-size:24px;line-height:1.4;color:#475467">323 lignes ; le LLM en voit une trentaine (orange). Il faut <b>compter</b>, pas lire.</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#14213D">« Quels documents viennent de l'Insee ? »</p>
+<div style="display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D;background:#EEF2F6;border-radius:8px;padding:8px 12px">insee/tic-entreprises-2024.pdf</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D;background:#EEF2F6;border-radius:8px;padding:8px 12px">insee/tic-entreprises-2025.html</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D;background:#EEF2F6;border-radius:8px;padding:8px 12px">insee/…-figures.xlsx</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D;background:#EEF2F6;border-radius:8px;padding:8px 12px">insee/tic-2025-tableau-ia.xlsx</p>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#475467">La réponse n'est dans aucun passage : elle est dans les <b>métadonnées</b> des documents.</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:28px;font-weight:600;line-height:1.3;color:#14213D">« Traduis ta réponse en anglais. »</p>
+<p style="font-size:26px;line-height:1.4;color:#14213D;background:#EEF2F6;border-radius:16px;padding:20px 24px">« Bonjour ! Que peux-tu faire pour moi ? »</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Chercher est <b>inutile</b>, et même nuisible : le seuil d'abstention bloque, ou les passages trouvés parasitent la réponse.</p>
+</div>
+</div>
+<aside>1 min 30. Cette slide montre les trois familles de questions qui échappent par nature à la recherche de passages. La première colonne illustre les agrégations avec « Combien de contrôles dans la santé en 2025 ? ». Le tableau compte 323 lignes, et le LLM n'en voit qu'une trentaine, en orange sur l'illustration, réparties dans cinq passages. Le LLM répond avec ce qu'il voit, c'est-à-dire faux : il faut compter, pas lire. La deuxième colonne porte sur la base elle-même avec « Quels documents viennent de l'Insee ? ». La liste affichée (le PDF de 2024, la page HTML de 2025 et deux fichiers XLSX) n'est écrite dans aucun document. La réponse est dans les métadonnées des documents, pas dans un passage. La troisième colonne montre des messages qui ne demandent aucune recherche, comme « Traduis ta réponse en anglais » ou « Bonjour ! Que peux-tu faire pour moi ? ». Chercher y est inutile, et même nuisible : le seuil d'abstention bloque, ou les passages trouvés parasitent la réponse. Pour chaque famille, la bonne réponse est un autre outil : un moteur SQL, une lecture des métadonnées, ou une réponse directe. Si quelqu'un propose de mettre tout le tableau dans le prompt, répondez que cela marche pour 323 lignes mais pas pour 300 000, et que les LLM comptent mal même quand ils voient tout.</aside>
+</section>

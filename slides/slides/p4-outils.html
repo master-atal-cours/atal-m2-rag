@@ -1,0 +1,37 @@
+<section id="p4-outils" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 4 · ce qui est fourni · rag/src/tables.py</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Les briques du TP 4</h2>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="width:900px;background:#14213D;border-radius:20px;padding:24px 32px;display:flex;flex-direction:column;gap:0px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F2A65A">self.llm.json(messages, Route).route  <span style="color:#8C99B8"># 'donnees'</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F2A65A">names = self.tables.search(question, k=3)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># ['cnil_sanctions_prononcees_2020_2025',</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8">#&#160;&#160;'cnil_controles_2025', 'cnil_controles_2024']</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">schema = self.tables.schema(names)  <span style="color:#8C99B8"># → à droite</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F2A65A">cols, rows = self.tables.query(sql)  <span style="color:#8C99B8"># lecture seule</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">print(format_result(cols, rows))</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># secteur_du_controle | n</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># Commerce | 140</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># Santé | 42 …</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">self.tables.query("DELETE …")  <span style="color:#8C99B8"># SQLError</span></p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;gap:6px">
+<p style="font-size:24px;font-weight:600;color:#14213D">Ce que schema() montre au LLM (extrait)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">TABLE cnil_controles_2025 -- Liste des contrôles réalisés par la CNIL en 2025 (323 lignes)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#475467">- modalite_de_controle valeurs : sur place, en ligne, sur pièces…</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#475467">- secteur_du_controle valeurs : Commerce, Santé, …</p>
+</div>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;flex-direction:row;background:#D0D5DD"><p style="width:52%;padding:8px 14px;font-size:24px;font-weight:600;line-height:1.4;color:#14213D">déjà écrit</p><p style="width:48%;padding:8px 14px;font-size:24px;font-weight:600;line-height:1.4;color:#14213D">sert à</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:52%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">pipeline.py</p><p style="width:48%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">aiguille selon la route</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:52%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">rewriter (TP 3)</p><p style="width:48%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">question autonome</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:52%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">DIRECT_PROMPT</p><p style="width:48%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">route conversation</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:52%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">self.index.documents</p><p style="width:48%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">le catalogue</p></div>
+</div>
+</div>
+</div>
+<aside>1 min 30. Cette slide présente les briques fournies pour le TP 4, principalement dans rag/src/tables.py. La première ligne montre le routeur : self.llm.json(messages, Route).route renvoie par exemple 'donnees', avec la classe Route de router.py à compléter avec les quatre routes. Pour les données, self.tables est une base SQLite en mémoire, construite au chargement avec les 22 tableaux du corpus. search(question, k=3) choisit les tables qui partagent le plus de mots avec la question ; ici, les sanctions 2020-2025 et les contrôles 2025 et 2024. schema(names) les décrit pour le prompt, comme le montre l'encadré de droite. query(sql) exécute en lecture seule, et format_result met le résultat en texte, ici Commerce 140 et Santé 42. La dernière ligne montre qu'un DELETE lève une SQLError. L'encadré de droite montre ce que schema() donne au LLM : la table des contrôles 2025 avec sa description, ses 323 lignes et les valeurs possibles de chaque colonne de texte. C'est ce qui permet au LLM d'écrire « Santé » plutôt que « santé » ou « médical ». Le tableau du bas rappelle ce qui est déjà écrit. pipeline.py aiguille selon la route, et le rewriter du TP 3 fournit la question autonome à l'outil SQL. DIRECT_PROMPT sert à la route conversation, et self.index.documents donne les métadonnées pour le catalogue. Précisez que les sorties affichées sont réelles.</aside>
+</section>

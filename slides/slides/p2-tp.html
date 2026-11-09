@@ -1,0 +1,27 @@
+<section id="p2-tp" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 2 · 40 minutes</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Découper par section, chercher en hybride, citer</h2>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">1</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>chunker</b> : pile de titres, paragraphes jusqu'à 1 200 caractères, lignes de tableau avec en-tête, préfixe « chemin »</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">2</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>Recharger le code</b>, vérifier le découpage dans l'onglet <b>Index</b></p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">3</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>search</b> : BM25 + dense, fusion RRF ; tester dans l'onglet <b>Index</b></p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">4</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>prompt</b> : sources numérotées ; puis évaluer et comparer au TP 1</p></div>
+</div>
+<div style="width:700px;background:#14213D;border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8C99B8"># bloc = doc.blocks[i]</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">bloc.kind   "heading" | "text" | "table"</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">bloc.level  1 = titre principal</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">bloc.rows   [en-tête, ligne, …]</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">bloc.page   numéro de page (PDF)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8"># fournis : tokenize(), serialize_row(),</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8"># BM25Okapi (rank_bm25)</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>À observer :</b> identifiants et tableaux doivent passer. Pourquoi les agrégations échouent-elles alors que les sources sont trouvées ?</p>
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>Bloqué ?</b> Repartez de <b>solutions/phase-1.zip</b> ; la solution de cette étape est <b>phase-2.zip</b>.</p>
+</div>
+<aside>1 min, puis 40 min. Cette slide donne la consigne du TP 2 : découper par section, chercher en hybride, citer. La première étape est le chunker : pile de titres, paragraphes jusqu'à 1 200 caractères, lignes de tableau avec leur en-tête, et préfixe « chemin ». Conseillez de commencer par là, car c'est la méthode la plus longue. La deuxième étape consiste à cliquer sur « Recharger le code » et à vérifier le découpage dans l'onglet Index, sur deux ou trois documents de formats différents. La troisième étape est la recherche : BM25 plus dense, fusion RRF, testée dans l'onglet Index ; elle tient en une quinzaine de lignes. Rappelez de conserver les scores intermédiaires dans Hit.details, car la partie 3 s'en servira pour l'abstention. La quatrième étape est le prompt avec les sources numérotées, puis l'évaluation et la comparaison avec le TP 1. L'encadré de droite rappelle la structure d'un bloc : kind vaut heading, text ou table, level vaut 1 pour le titre principal, rows contient l'en-tête puis les lignes, et page donne le numéro de page des PDF. Les fonctions tokenize et serialize_row, ainsi que BM25Okapi, sont fournies. Posez la question de la slide en fin de TP : pourquoi les agrégations comme « combien de contrôles en 2025 ? » échouent-elles alors que les sources sont trouvées ? La réponse exige 323 lignes, et le LLM n'en voit que quelques-unes : on y reviendra en partie 4. Ceux qui sont bloqués mettent leur travail de côté, décompressent solutions/phase-1.zip dans rag/ et rechargent le code ; la solution de cette étape est phase-2.zip.</aside>
+</section>

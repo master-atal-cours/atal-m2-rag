@@ -1,0 +1,23 @@
+<section id="p3-multitours" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Conversation</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">« Et en 2020 ? » n'est pas une requête de recherche</h2>
+<div style="display:flex;flex-direction:row;gap:56px">
+<div style="width:640px;display:flex;flex-direction:column;gap:18px">
+<p style="align-self:flex-end;max-width:520px;font-size:28px;line-height:1.4;color:#F7F5F0;background:#2563A6;border-radius:24px 24px 4px 24px;padding:20px 26px">Combien de plaintes la CNIL a-t-elle reçues en 2025 ?</p>
+<p style="align-self:flex-start;max-width:540px;font-size:28px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #E2DED5;border-radius:24px 24px 24px 4px;padding:20px 26px">D'après les données ouvertes de la CNIL, elle a reçu 20 150 plaintes en 2025.</p>
+<p style="align-self:flex-end;max-width:520px;font-size:28px;line-height:1.4;color:#F7F5F0;background:#2563A6;border:4px solid #E4572E;border-radius:24px 24px 4px 24px;padding:20px 26px">Et en 2020 ?</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<div style="background:#E4E7EC;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:10px">
+<p style="font-size:24px;font-weight:600;color:#667085">Phase 2 · on cherche « Et en 2020 ? »</p>
+<p style="font-size:26px;line-height:1.4;color:#475467"><i>« Il n'est pas possible de répondre à votre question concernant le nombre de plaintes reçues en 2020. Les documents détaillent les types de sanctions… »</i></p>
+</div>
+<div style="background:#FDFCF9;border:2px solid #E4572E;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:10px">
+<p style="font-size:24px;font-weight:600;color:#B5401E">Phase 3 · on cherche « Combien de plaintes la CNIL a-t-elle reçues en 2020 ? »</p>
+<p style="font-size:26px;line-height:1.4;color:#14213D"><i>« En 2020, la CNIL a reçu 13 585 plaintes [1]. »</i></p>
+</div>
+<p style="font-size:26px;line-height:1.4;color:#475467">Le LLM voit toute la conversation, mais la <b>recherche</b> ne voit que le dernier message : elle ramène des passages sur les sanctions, sans rapport avec les plaintes.</p>
+</div>
+</div>
+<aside>1 min 30. Cette slide montre le problème du multi-tours : « Et en 2020 ? » n'est pas une requête de recherche. La conversation commence par « Combien de plaintes la CNIL a-t-elle reçues en 2025 ? », et l'assistant répond 20 150 plaintes. L'utilisateur enchaîne avec « Et en 2020 ? », comme on le fait naturellement dans une vraie conversation. En phase 2, on cherche « Et en 2020 ? » tel quel, et le modèle répond qu'il ne peut pas répondre, car les documents parlent de sanctions. Ce message ne contient qu'une date, donc BM25 comme la recherche dense ramènent des passages quelconques qui mentionnent 2020. Le modèle, honnête, dit qu'il ne trouve pas. En phase 3, on cherche « Combien de plaintes la CNIL a-t-elle reçues en 2020 ? », et le modèle répond 13 585 plaintes, avec la citation [1]. Les deux réponses affichées sont réelles. Insistez sur la phrase du bas : le LLM voit toute la conversation, mais la recherche ne voit que le dernier message. La plupart des messages réels ne sont pas autonomes, comme « et dans les activités immobilières ? » ou « et dans l'Union européenne ? ». La transition est simple : avant de chercher, il faut transformer le dernier message en requête autonome.</aside>
+</section>

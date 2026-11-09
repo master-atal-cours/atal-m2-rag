@@ -1,0 +1,28 @@
+<section id="p2-attendu" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 2 · ce qui est attendu · chunker, search, prompt</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Ce que chaque méthode doit produire</h2>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">chunker · chunk(doc)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Suivre doc.blocks&#160;: un passage par section, préfixé par son chemin&#160;; tableaux en lignes complètes&#160;; au plus MAX_CHARS.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">Nombre de plaintes reçues par la CNIL… (1981-2025)<br>Année: Nombre de plaintes reçues | … | 2023: 16433 | 2024: 17772</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">search · __init__()</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">À la création de la recherche, une fois l'index construit : self.bm25 sur le texte des passages (index.chunks).</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#2563A6">self.bm25.get_scores(tokenize(q)).shape<br>→ (3072,) : un score par passage</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">search · find(query, k)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">CANDIDATES meilleurs en dense et en BM25, fusion RRF (rangs à partir de 1), les k meilleurs ; les deux scores dans details.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">« Combien de plaintes la CNIL a-t-elle reçues en 2024 ? » → plaintes….csv#0 : 0,0325, dense 0,677, bm25 17,789</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">prompt · build(), source_label()</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">CITATIONS_PROMPT avec les sources numérotées : « [i] étiquette » (source_label), puis le texte du passage ; puis la conversation.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">[1] Nombre de plaintes reçues par la CNIL, par année (1981-2025)<br>Année: Nombre de plaintes reçues | 1981: 136 | …</p>
+</div>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#14213D;background:#FBE9DE;border-left:6px solid #E4572E;padding:16px 24px"><b>C'est réussi si</b> l'évaluation donne environ <b>25/41</b> : identifiant 4/4, tableau 5/6, structure 2/2. Les suites de conversation échouent encore.</p>
+<aside>1 min. Cette slide détaille ce que doivent produire les trois composants du TP 2 : chunker, search et prompt. La méthode chunk(doc) suit doc.blocks et produit un passage par section, préfixé par son chemin, avec les tableaux en lignes complètes et au plus MAX_CHARS caractères. C'est la méthode la plus longue de la séance, et sa docstring donne l'algorithme suggéré : pile des titres, accumulation des paragraphes, lignes de tableau qui répètent l'en-tête. L'exemple montre le document des plaintes, où chaque année est désormais associée à sa valeur, par exemple « 2024: 17772 ». Le résultat se vérifie dans l'onglet Index, et l'index est reconstruit au rechargement du code puisque le découpage change. Le constructeur de Search est appelé une fois l'index construit, et c'est là qu'on construit self.bm25 sur le texte des passages : get_scores renvoie 3 072 scores, un par passage. La méthode find prend les CANDIDATES meilleurs en dense et en BM25, les fusionne par RRF avec des rangs à partir de 1, et range les deux scores bruts dans details. Sur les plaintes de 2024, le CSV est premier des deux classements : 0,0325, avec un score dense de 0,677 et un score BM25 de 17,789. Le score dense servira à l'abstention en partie 3. La méthode build numérote les sources avec CITATIONS_PROMPT, sous la forme « [i] étiquette » donnée par source_label, puis le texte du passage, puis la conversation. Le critère de réussite est d'environ 25 sur 41, avec identifiants 4/4, tableaux 5/6 et structure 2/2 ; les suites de conversation échouent encore.</aside>
+</section>

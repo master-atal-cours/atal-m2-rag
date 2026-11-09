@@ -1,0 +1,435 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Questionnaire d'évaluation du TP RAG
+#
+#  Chaque question indique la phase à partir de laquelle on s'attend à ce
+#  qu'elle soit réussie (phase = 1..4). Champs :
+#
+#    id, category   identifiant et type de question (voir rag/src/evaluation.py)
+#    question       une question isolée…
+#    turns          …ou une conversation : utilisateur, assistant, utilisateur, ...
+#                   (le pipeline répond au dernier message)
+#    expect         éléments attendus dans la réponse ; une liste imbriquée donne
+#                   des alternatives ; « re: » introduit une expression régulière
+#    forbid         éléments qui ne doivent pas apparaître
+#    abstain        true si la réponse n'est pas dans le corpus
+#    sources        documents qui devraient figurer parmi les passages utilisés
+#    max_chars      longueur maximale de la réponse
+#    reference      réponse attendue, affichée à côté de celle du système
+#
+#  Lancer : onglet « Évaluation » de l'interface, ou rag eval (--only factuel,T2)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Factuel : un fait énoncé dans un paragraphe ────────────────────────────────
+
+[[questions]]
+id = "F1"
+category = "factuel"
+phase = 1
+question = "Combien de membres du conseil d'administration de l'Université Clermont Auvergne ont voté pour sa charte sur l'IA générative ?"
+reference = "25 voix pour, aucune contre ni abstention (41 membres en exercice)."
+expect = ["re:\\b25\\b"]
+sources = ["charte-ia-uca"]
+
+[[questions]]
+id = "F2"
+category = "factuel"
+phase = 1
+question = "Selon l'Insee, quelle est la raison la plus souvent citée par les entreprises pour ne pas utiliser l'IA en 2025 ?"
+reference = "Le manque d'utilité, cité par 71 % des entreprises qui n'utilisent pas l'IA."
+expect = [["utilité", "utile"], "re:\\b71 %"]
+sources = ["insee/tic-entreprises-2025"]
+
+[[questions]]
+id = "F3"
+category = "factuel"
+phase = 1
+question = "À quelle date le conseil d'administration de l'Université Clermont Auvergne a-t-il approuvé sa charte sur l'IA générative ?"
+reference = "Le 27 juin 2025."
+expect = ["27 juin 2025"]
+sources = ["charte-ia-uca"]
+
+[[questions]]
+id = "F4"
+category = "factuel"
+phase = 1
+question = "Combien de contributions la CNIL a-t-elle reçues lors de la consultation publique sur ses premières recommandations pour le développement des systèmes d'IA ?"
+reference = "43 contributions, lors d'une consultation publique de deux mois."
+expect = ["re:\\b43\\b"]
+sources = ["webinaire-fiches-ia"]
+
+[[questions]]
+id = "F5"
+category = "factuel"
+phase = 1
+question = "Qui présentait le webinaire de la CNIL du 23 avril 2024 sur les fiches pratiques IA ?"
+reference = "Alexis Leautier, ingénieur au service de l'intelligence artificielle, et Sarah Artola, juriste au service des affaires économiques."
+expect = ["Leautier", "Artola"]
+sources = ["webinaire-fiches-ia"]
+
+# ── Identifiant : article, numéro, référence exacte ────────────────────────────
+
+[[questions]]
+id = "I1"
+category = "identifiant"
+phase = 2
+question = "Que prévoit l'article 50 du règlement européen sur l'IA ?"
+reference = "Des obligations de transparence : informer les personnes qu'elles interagissent avec une IA, marquer les contenus générés ou manipulés par une IA, signaler les hypertrucages (deepfakes), informer en cas de reconnaissance des émotions ou de catégorisation biométrique."
+expect = [["interagi", "interaction"], ["hypertrucage", "deepfake", "générés ou manipulés", "manipulés par une IA"]]
+sources = ["ue-2024-1689"]
+note = "L'article 50 du RGPD (coopération internationale) est un faux ami."
+
+[[questions]]
+id = "I2"
+category = "identifiant"
+phase = 2
+question = "Quel est le numéro de la délibération de la CNIL portant adoption de sa recommandation sur le développement des systèmes d'IA ?"
+reference = "La délibération n° 2024-011."
+expect = ["2024-011"]
+sources = ["recommandation-ia-developpement"]
+
+[[questions]]
+id = "I3"
+category = "identifiant"
+phase = 2
+question = "Quel est le sujet de la fiche 16 du guide de la sécurité des données personnelles de la CNIL ?"
+reference = "« Tracer les opérations » : la journalisation des accès et des opérations."
+expect = [["tracer", "traçabilité", "journalis"]]
+sources = ["guide-securite-donnees-personnelles"]
+
+[[questions]]
+id = "I4"
+category = "identifiant"
+phase = 2
+question = "Dans le catalogue compar:IA, combien de tokens de contexte le modèle apertus-v1-5-8b accepte-t-il ?"
+reference = "262 144 tokens."
+expect = [["262144", "262 144"]]
+sources = ["comparia-modeles"]
+note = "Identifiant exact : les autres modèles Apertus ont un contexte de 65 536 tokens."
+
+# ── Tableau : une valeur dans un tableau ───────────────────────────────────────
+
+[[questions]]
+id = "T1"
+category = "tableau"
+phase = 2
+question = "Quel est le montant total des amendes prononcées par la CNIL en 2023 ?"
+reference = "89 179 500 euros."
+expect = [["89 179 500", "89,2 millions", "89,18 millions"]]
+sources = ["sanctions-montant-amendes-par-annee"]
+
+[[questions]]
+id = "T2"
+category = "tableau"
+phase = 2
+question = "En 2025, quelle part des entreprises françaises de 250 salariés ou plus utilise au moins une technologie d'IA ?"
+reference = "58 %."
+expect = ["re:\\b58 %"]
+sources = ["insee/tic-entreprises-2025"]
+
+[[questions]]
+id = "T3"
+category = "tableau"
+phase = 2
+question = "Selon l'Insee, quelle part des entreprises utilisaient l'IA en Finlande en 2025 ?"
+reference = "38 % (24 % en 2024)."
+expect = ["re:\\b38 %"]
+sources = ["insee/tic-entreprises-2025"]
+
+[[questions]]
+id = "T4"
+category = "tableau"
+phase = 2
+question = "Combien de plaintes la CNIL a-t-elle reçues en 2024 ?"
+reference = "17 772 plaintes."
+expect = [["17 772", "17772"]]
+sources = ["plaintes-recues"]
+
+[[questions]]
+id = "T5"
+category = "tableau"
+phase = 2
+question = "D'après le catalogue compar:IA, combien de Wh par million de tokens consomme le modèle Apertus 70B Instruct ?"
+reference = "Environ 657,5 Wh par million de tokens (657,529)."
+expect = ["re:\\b657"]
+sources = ["comparia-modeles"]
+
+[[questions]]
+id = "T6"
+category = "tableau"
+phase = 2
+question = "Quelle sanction la CNIL a-t-elle prononcée le 8 janvier 2026 contre un opérateur de téléphonie mobile ?"
+reference = "Une amende de 27 millions d'euros, assortie d'une injonction."
+expect = [["27 millions", "27 000 000"]]
+sources = ["sanctions-prononcees"]
+
+# ── Structure : la réponse dépend du titre de la section ───────────────────────
+
+[[questions]]
+id = "S1"
+category = "structure"
+phase = 2
+question = "Selon la charte de l'Université catholique de l'Ouest, que doit préciser la mention d'un usage de l'IA dans un travail universitaire ?"
+reference = "L'outil d'IA utilisé, la nature de l'utilisation et les étapes du travail concernées."
+expect = ["outil", "nature", "étapes"]
+sources = ["charte-ia-uco"]
+
+[[questions]]
+id = "S2"
+category = "structure"
+phase = 2
+question = "Selon le guide de la CNIL sur la sécurité des données personnelles, que ne faut-il pas faire en matière de sauvegarde ?"
+reference = "Ne pas protéger les sauvegardes moins bien que le reste du système, ne pas les conserver sur les mêmes systèmes que les données sans les isoler, ni au même endroit."
+expect = [["mêmes systèmes", "même système", "isol", "moins élevé", "moins sécuris"]]
+sources = ["guide-securite-donnees-personnelles"]
+
+# ── Multi-tours : questions de suivi ───────────────────────────────────────────
+
+[[questions]]
+id = "M1"
+category = "multi-tours"
+phase = 3
+turns = [
+    "Quelle amende la CNIL a-t-elle infligée le 8 janvier 2026 à un opérateur de téléphonie mobile ?",
+    "Le 8 janvier 2026, la CNIL a infligé à un opérateur de téléphonie mobile une amende de 27 millions d'euros, assortie d'une injonction.",
+    "Et à l'opérateur de téléphonie fixe sanctionné le même jour ?",
+]
+reference = "Une amende de 15 millions d'euros, assortie d'une injonction."
+expect = [["15 millions", "15 000 000"]]
+sources = ["sanctions-prononcees"]
+
+[[questions]]
+id = "M2"
+category = "multi-tours"
+phase = 3
+turns = [
+    "Combien de plaintes la CNIL a-t-elle reçues en 2025 ?",
+    "D'après les données ouvertes de la CNIL, elle a reçu 20 150 plaintes en 2025.",
+    "Et en 2020 ?",
+]
+reference = "13 585 plaintes en 2020."
+expect = [["13 585", "13585"]]
+sources = ["plaintes-recues"]
+
+[[questions]]
+id = "M3"
+category = "multi-tours"
+phase = 3
+turns = [
+    "Selon l'Insee, quelle part des entreprises des activités spécialisées, scientifiques et techniques utilise l'IA en 2025 ?",
+    "Selon l'Insee, 33 % des entreprises des activités spécialisées, scientifiques et techniques utilisent l'IA en 2025.",
+    "Et dans les activités immobilières, en France ?",
+]
+reference = "26 % en 2025."
+expect = ["re:\\b26 %"]
+sources = ["insee/tic-entreprises-2025"]
+
+[[questions]]
+id = "M4"
+category = "multi-tours"
+phase = 3
+turns = [
+    "Quelle part des entreprises françaises utilise l'IA en 2025 ?",
+    "Selon l'Insee, 18 % des entreprises françaises de 10 salariés ou plus déclarent utiliser au moins une technologie d'IA en 2025.",
+    "Et dans l'ensemble de l'Union européenne ?",
+]
+reference = "20 % des entreprises de l'Union européenne en 2025."
+expect = ["re:\\b20 %"]
+sources = ["insee/tic-entreprises-2025"]
+
+# ── Versions : plusieurs versions d'un même contenu ────────────────────────────
+
+[[questions]]
+id = "V1"
+category = "versions"
+phase = 3
+question = "Quelle part des entreprises du secteur de l'information-communication utilise l'IA, selon l'Insee ?"
+reference = "59 % en 2025 (édition 2025) ; l'édition précédente donnait 42 % pour 2024."
+expect = [["59 %", "60 %", "six entreprises sur dix", "six sur dix"]]
+first = [["59 %", "60 %", "six entreprises sur dix", "six sur dix"], ["42 %"]]
+sources = ["insee/tic-entreprises-2025"]
+note = "L'édition 2024 donne 42 % : il faut la plus récente."
+
+[[questions]]
+id = "V2"
+category = "versions"
+phase = 3
+question = "Quelle part des entreprises françaises déclarent utiliser l'intelligence artificielle, selon l'Insee ?"
+reference = "18 % des entreprises de 10 salariés ou plus en 2025 (10 % dans l'édition précédente, pour 2024)."
+expect = ["re:\\b18 %"]
+first = [["18 %"], ["10 %"]]
+sources = ["insee/tic-entreprises-2025"]
+note = "L'édition 2024 donne 10 % : il faut la plus récente."
+
+[[questions]]
+id = "V3"
+category = "versions"
+phase = 3
+question = "Dans sa proposition initiale de 2021, quel plafond d'amende la Commission européenne prévoyait-elle pour les pratiques d'IA interdites ?"
+reference = "30 000 000 euros ou 6 % du chiffre d'affaires annuel mondial."
+expect = [["30 000 000", "30 millions"]]
+sources = ["ue-2021-206"]
+
+# ── Synthèse : réponse qui combine plusieurs documents ─────────────────────────
+
+[[questions]]
+id = "X1"
+category = "synthese"
+phase = 3
+question = "Comparez les chartes sur l'IA de l'Université catholique de l'Ouest et de l'Université Clermont Auvergne : comment traitent-elles un usage de l'IA qui n'a pas été déclaré ?"
+reference = "UCO : l'usage non mentionné est présumé prohibé et expose l'étudiant à des sanctions. UCA : utiliser l'IA sans le dire pourra être considéré comme une fraude."
+expect = [["présumé prohibé", "présumé interdit"], "fraude"]
+sources = ["charte-ia-uco", "charte-ia-uca"]
+
+[[questions]]
+id = "X2"
+category = "synthese"
+phase = 3
+question = "D'après les deux dernières éditions de l'enquête TIC de l'Insee, comment a évolué la part des entreprises utilisant l'IA qui achètent des logiciels ou systèmes prêts à l'emploi ?"
+reference = "Elle passe de 69 % (édition 2024) à 80 % (édition 2025)."
+expect = ["re:\\b69 %", "re:\\b80 %"]
+sources = ["insee/tic-entreprises-2024", "insee/tic-entreprises-2025"]
+
+# ── Abstention : la réponse n'est pas dans le corpus ──────────────────────────
+
+[[questions]]
+id = "A1"
+category = "abstention"
+phase = 3
+question = "Combien de contrôles la CNIL a-t-elle réalisés en 2012 ?"
+reference = "Information absente du corpus : la liste des contrôles ne couvre que 2024 et 2025."
+abstain = true
+note = "Le corpus ne contient la liste des contrôles que pour 2024 et 2025 (mais d'autres chiffres de 2012)."
+
+[[questions]]
+id = "A2"
+category = "abstention"
+phase = 3
+question = "Selon la charte de l'Université catholique de l'Ouest, les calculatrices sont-elles autorisées pendant les examens ?"
+reference = "Information absente du corpus : la charte ne parle pas des calculatrices."
+abstain = true
+
+[[questions]]
+id = "A3"
+category = "abstention"
+phase = 3
+question = "Quel est le salaire moyen d'un data scientist en France selon l'Insee ?"
+reference = "Information absente du corpus."
+abstain = true
+
+# ── Agrégation : comptage, somme, classement sur des données ───────────────────
+
+[[questions]]
+id = "G1"
+category = "agregation"
+phase = 4
+question = "Combien de contrôles la CNIL a-t-elle réalisés en 2025 ?"
+reference = "323 contrôles."
+expect = ["re:\\b323\\b"]
+sources = ["controles-2025"]
+
+[[questions]]
+id = "G2"
+category = "agregation"
+phase = 4
+question = "Combien de contrôles la CNIL a-t-elle menés dans le secteur de la santé en 2025 ?"
+reference = "42 contrôles."
+expect = ["re:\\b42\\b"]
+sources = ["controles-2025"]
+
+[[questions]]
+id = "G3"
+category = "agregation"
+phase = 4
+question = "Combien de modèles de Mistral AI le catalogue compar:IA référence-t-il ?"
+reference = "16 modèles."
+expect = ["re:\\b16\\b"]
+sources = ["comparia-modeles"]
+
+[[questions]]
+id = "G4"
+category = "agregation"
+phase = 4
+question = "Quel est le modèle le plus économe en énergie (en Wh par million de tokens) du catalogue compar:IA ?"
+reference = "LFM 2 8B A1B (environ 80,7 Wh par million de tokens)."
+expect = [["8B A1B", "8b-a1b"]]
+sources = ["comparia-modeles"]
+
+[[questions]]
+id = "G5"
+category = "agregation"
+phase = 4
+question = "Quel est le montant cumulé des amendes prononcées par la CNIL de 2019 à 2025 inclus ?"
+reference = "1 136 474 600 euros, soit environ 1,14 milliard d'euros."
+expect = [["1 136 474 600", "1,136 milliard", "1,14 milliard", "1 136,5 millions", "1 136 millions"]]
+sources = ["sanctions-montant-amendes-par-annee"]
+
+[[questions]]
+id = "G6"
+category = "agregation"
+phase = 4
+question = "Combien de sanctions la CNIL a-t-elle prononcées en 2024 ?"
+reference = "87 sanctions."
+expect = ["re:\\b87\\b"]
+sources = ["sanctions-prononcees"]
+
+# ── Catalogue : questions sur la base documentaire ─────────────────────────────
+
+[[questions]]
+id = "C1"
+category = "catalogue"
+phase = 4
+question = "Combien de documents contient la base documentaire ?"
+reference = "48 documents."
+expect = ["re:\\b48\\b"]
+
+[[questions]]
+id = "C2"
+category = "catalogue"
+phase = 4
+question = "Quels documents de la base proviennent de l'Insee ?"
+reference = "Quatre documents : les Insee Première n° 2061 (TIC 2024) et n° 2120 (TIC 2025), les données des figures du n° 2120, et le tableau 5 de l'enquête TIC 2025 sur l'IA."
+expect = ["2061", "2120", ["tableau 5", "TICE", "TIC entreprises 2025 —", "figures"]]
+
+[[questions]]
+id = "C3"
+category = "catalogue"
+phase = 4
+question = "Quels formats de fichiers trouve-t-on dans la base documentaire ?"
+reference = "PDF, HTML, Markdown, CSV, XLSX, JSON, DOCX et ODT."
+expect = ["PDF", "HTML", "CSV", "XLSX", "JSON", "DOCX", "ODT", ["Markdown", "MD"]]
+
+# ── Conversation : pas besoin de recherche ─────────────────────────────────────
+
+[[questions]]
+id = "K1"
+category = "conversation"
+phase = 4
+question = "Bonjour ! Sur quels documents t'appuies-tu pour répondre ?"
+reference = "Une présentation de la base : règlements européens (IA, RGPD), guides et données ouvertes de la CNIL, statistiques de l'Insee, chartes universitaires, catalogue compar:IA, guides d'Etalab…"
+expect = ["CNIL", "Insee"]
+forbid = ["pas trouvé"]
+
+[[questions]]
+id = "K2"
+category = "conversation"
+phase = 4
+turns = [
+    "À partir de quelle date le RGPD est-il applicable ?",
+    "Le RGPD est applicable depuis le 25 mai 2018 [1].",
+    "Traduis ta réponse en anglais.",
+]
+reference = "The GDPR has applied since 25 May 2018."
+expect = [["May 25, 2018", "25 May 2018", "May 25 2018", "May 25th, 2018"]]
+
+[[questions]]
+id = "K3"
+category = "conversation"
+phase = 4
+turns = [
+    "Que prévoit l'article 50 du règlement européen sur l'IA ?",
+    "L'article 50 du règlement (UE) 2024/1689 impose des obligations de transparence : les fournisseurs doivent concevoir les systèmes d'IA qui interagissent avec des personnes de sorte que celles-ci sachent qu'elles interagissent avec une IA ; les contenus de synthèse (images, sons, vidéos, textes) doivent être marqués comme générés artificiellement ; les déployeurs de systèmes de reconnaissance des émotions ou de catégorisation biométrique doivent en informer les personnes ; et les hypertrucages (deepfakes) doivent être signalés comme tels [1][2].",
+    "Résume ta réponse en une seule phrase.",
+]
+reference = "L'article 50 impose des obligations de transparence : signaler l'interaction avec une IA et marquer les contenus générés, dont les hypertrucages."
+expect = [["transparence", "interagi", "informer", "informées"]]
+max_chars = 450

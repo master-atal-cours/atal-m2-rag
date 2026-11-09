@@ -1,0 +1,33 @@
+<section id="p2-chunking" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Découpage structurel</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Couper aux frontières, et dire d'où l'on vient</h2>
+<div style="display:flex;flex-direction:row;gap:56px">
+<!-- strip A 0,48,280,560 ; strip B 360,48,280,560 ; sections at 48/168/448 -->
+<div style="position:relative;width:640px;height:608px">
+<p style="position:absolute;left:0;top:0;width:280px;font-size:24px;font-weight:600;color:#667085">taille fixe · phase 1</p>
+<p style="position:absolute;left:360px;top:0;width:280px;font-size:24px;font-weight:600;color:#B5401E">par section · phase 2</p>
+<div style="position:absolute;left:0;top:48px;width:280px;height:120px;background:#E4E7EC;border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:center"><p style="font-size:26px;color:#475467">Article 49</p></div>
+<div style="position:absolute;left:0;top:168px;width:280px;height:280px;background:#F6D3BC;display:flex;align-items:center;justify-content:center"><p style="font-size:26px;font-weight:600;color:#14213D">Article 50</p></div>
+<div style="position:absolute;left:0;top:448px;width:280px;height:160px;background:#E4E7EC;border-radius:0 0 12px 12px;display:flex;align-items:center;justify-content:center"><p style="font-size:26px;color:#475467">Article 51</p></div>
+<div style="position:absolute;left:360px;top:48px;width:280px;height:120px;background:#E4E7EC;border-radius:12px 12px 0 0;display:flex;align-items:center;justify-content:center"><p style="font-size:26px;color:#475467">Article 49</p></div>
+<div style="position:absolute;left:360px;top:168px;width:280px;height:280px;background:#F6D3BC;display:flex;align-items:center;justify-content:center"><p style="font-size:26px;font-weight:600;color:#14213D">Article 50</p></div>
+<div style="position:absolute;left:360px;top:448px;width:280px;height:160px;background:#E4E7EC;border-radius:0 0 12px 12px;display:flex;align-items:center;justify-content:center"><p style="font-size:26px;color:#475467">Article 51</p></div>
+<x-connector x1="0" y1="198" x2="280" y2="198" head="none" style="color:#14213D;border-width:4px;border-style:dashed"></x-connector>
+<x-connector x1="0" y1="348" x2="280" y2="348" head="none" style="color:#14213D;border-width:4px;border-style:dashed"></x-connector>
+<x-connector x1="0" y1="498" x2="280" y2="498" head="none" style="color:#14213D;border-width:4px;border-style:dashed"></x-connector>
+<x-connector x1="360" y1="168" x2="640" y2="168" head="none" style="color:#E4572E;border-width:5px"></x-connector>
+<x-connector x1="360" y1="308" x2="640" y2="308" head="none" style="color:#E4572E;border-width:5px"></x-connector>
+<x-connector x1="360" y1="448" x2="640" y2="448" head="none" style="color:#E4572E;border-width:5px"></x-connector>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:24px">
+<div style="background:#FDFCF9;border:2px solid #E4572E;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:10px">
+<p style="font-size:24px;font-weight:600;line-height:1.4;color:#B5401E">Règlement (UE) 2024/1689 sur l'IA › Chapitre IV › Article 50 — Obligations de transparence…</p>
+<p style="font-size:24px;line-height:1.45;color:#14213D">1. Les fournisseurs veillent à ce que les systèmes d'IA destinés à interagir directement avec des personnes physiques soient conçus et développés de manière que les personnes concernées soient informées qu'elles interagissent avec un système d'IA…</p>
+</div>
+<p style="font-size:26px;line-height:1.45;color:#475467"><span style="color:#14213D;font-weight:700">Une pile de titres :</span> chaque titre de niveau n remplace ceux de niveau ≥ n.</p>
+<p style="font-size:26px;line-height:1.45;color:#475467"><span style="color:#14213D;font-weight:700">Des paragraphes accumulés</span> jusqu'à 1 200 caractères, coupés à chaque nouveau titre.</p>
+<p style="font-size:26px;line-height:1.45;color:#475467"><span style="color:#14213D;font-weight:700">Un préfixe « chemin »</span> en tête de chaque passage : il compte pour l'embedding et pour BM25.</p>
+</div>
+</div>
+<aside>2 min. Cette slide présente le découpage structurel : couper aux frontières, et dire d'où l'on vient. À gauche, la phase 1 coupe tous les 1 000 caractères sans tenir compte des articles 49, 50 et 51. Un morceau chevauche ainsi la fin de l'article 49 et le début du 50, un autre le milieu du 50, et ainsi de suite. À droite, la phase 2 coupe d'abord aux titres, puis à 1 200 caractères à l'intérieur d'un article trop long. Le passage affiché est réel : il commence par son chemin, « Règlement (UE) 2024/1689 sur l'IA › Chapitre IV › Article 50 », suivi du premier paragraphe sur l'obligation d'informer les personnes qu'elles interagissent avec un système d'IA. L'algorithme, résumé en bas, tient en quelques lignes. On parcourt les blocs en tenant une pile de titres, où chaque titre de niveau n remplace ceux de niveau n ou plus. On accumule les paragraphes jusqu'à 1 200 caractères, et on émet un passage à chaque nouveau titre ou quand le budget est atteint. Le point le plus rentable est le préfixe « chemin » en tête de chaque passage, qui compte pour l'embedding comme pour BM25. Grâce à lui, le passage contient les mots « Article 50 » et « règlement sur l'IA », que les deux recherches peuvent exploiter.</aside>
+</section>

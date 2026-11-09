@@ -1,0 +1,33 @@
+<section id="p2-structure" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Lecture des documents</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Garbage in, garbage out : lire la structure</h2>
+<div style="display:flex;flex-direction:row;gap:40px;align-items:stretch">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#667085">doc.raw_text · phase 1</p>
+<div style="flex:1;background:#E4E7EC;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:6px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#475467">Figure 1 – Part des entreprises qui…</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#475467">Caractéristiques  France    UE</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#475467">  2023  2024  2025  2023  2024  2025</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#475467">Taille de l'entreprise</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#475467">250 salariés ou plus  21  33  58  30</p>
+</div>
+</div>
+<p style="width:60px;font-size:48px;color:#E4572E;text-align:center;line-height:300px">→</p>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<p style="font-size:26px;font-weight:600;color:#B5401E">doc.blocks · phase 2</p>
+<div style="flex:1;background:#FDFCF9;border:2px solid #E4572E;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:10px">
+<p style="font-size:24px;line-height:1.4;color:#14213D"><span style="color:#B5401E">titre ·</span> Figure 1 – Part des entreprises qui…</p>
+<p style="font-size:24px;line-height:1.4;color:#14213D"><span style="color:#B5401E">tableau ·</span> en-tête fusionné : « France 2025 », « Union européenne 2023 »…</p>
+<p style="font-size:24px;line-height:1.4;color:#14213D"><span style="color:#B5401E">ligne ·</span> Taille de l'entreprise — 250 salariés ou plus | 21 | 33 | 58 | 30…</p>
+<p style="font-size:24px;line-height:1.4;color:#14213D"><span style="color:#B5401E">texte ·</span> Lecture : en 2025, 18 % des entreprises…</p>
+</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:20px">
+<p style="font-size:24px;line-height:1.4;color:#475467;border-top:3px solid #14213D;padding:12px 0 0 0"><span style="color:#14213D;font-weight:700">PDF</span> · titres repérés à la taille de police, en-têtes de page retirés</p>
+<p style="font-size:24px;line-height:1.4;color:#475467;border-top:3px solid #14213D;padding:12px 0 0 0"><span style="color:#14213D;font-weight:700">HTML</span> · balises h1–h6 et tableaux ; menus et pieds de page retirés</p>
+<p style="font-size:24px;line-height:1.4;color:#475467;border-top:3px solid #14213D;padding:12px 0 0 0"><span style="color:#14213D;font-weight:700">DOCX, ODT, MD</span> · styles de titre, listes, tableaux</p>
+<p style="font-size:24px;line-height:1.4;color:#475467;border-top:3px solid #14213D;padding:12px 0 0 0"><span style="color:#14213D;font-weight:700">CSV, XLSX, JSON</span> · un tableau par feuille, enregistrements aplatis</p>
+</div>
+<aside>2 min. Cette slide traite la lecture des documents, sous le principe « garbage in, garbage out ». Le module fourni rag/src/documents.py lit chaque fichier sous deux formes : le texte brut, découpé en phase 1, et les blocs, utilisés en phase 2. À gauche, l'exemple est un vrai tableau de l'Insee en texte brut. Les années et les pays sont sur des lignes séparées, si bien que plus rien ne dit que « 58 » est la valeur « France 2025 » pour les entreprises de 250 salariés ou plus. À droite, le même tableau en blocs garde sa structure. « Figure 1 » devient un bloc titre, et l'en-tête sur deux lignes est fusionné en « France 2025 », « Union européenne 2023 », etc. Le regroupement « Taille de l'entreprise » est rattaché à chaque ligne, et la note de lecture reste un bloc texte. Les quatre encadrés du bas résument les pièges de chaque format. Pour les PDF, les titres sont repérés à la taille de police et les en-têtes de page retirés ; pour le HTML, on garde les balises h1 à h6 et les tableaux, et on retire menus et pieds de page. Pour DOCX, ODT et MD, on lit les styles de titre, les listes et les tableaux ; pour CSV, XLSX et JSON, on fait un tableau par feuille et on aplatit les enregistrements. Ce travail est ingrat mais décisif : en entreprise, une grande partie de l'effort d'un projet RAG passe dans la lecture des documents.</aside>
+</section>

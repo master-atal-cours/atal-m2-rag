@@ -1,0 +1,26 @@
+<section id="p3-tp" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 3 · 35 minutes</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Réécrire, construire le contexte, s'abstenir</h2>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">1</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>rewriter</b> : requête autonome à partir de l'historique ; tester dans le <b>Chat</b></p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">2</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>context</b> : voisins de même section, doublons, ordre, budget</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">3</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>prompt</b> : date et statut dans l'étiquette, RULES_PROMPT</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">4</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>abstention</b> : s'abstenir sous le seuil, sans appeler le LLM</p></div>
+</div>
+<div style="width:700px;background:#14213D;border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8C99B8"># même index qu'au TP 2</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">Chat : « Et en 2020 ? »</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8">&#160;&#160;→ trace : query réécrite</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">Évaluation : multi-tours,</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">&#160;&#160;versions, abstention</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8"># puis tout le questionnaire</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>À observer :</b> quelles questions régressent par rapport à p2, et pourquoi ? Que faudrait-il pour les rattraper ?</p>
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>Bloqué ?</b> Repartez de <b>solutions/phase-2.zip</b> ; la solution de cette étape est <b>phase-3.zip</b>.</p>
+</div>
+<aside>1 min, puis 35 min. Cette slide donne la consigne du TP 3 : réécrire, construire le contexte, s'abstenir. Il n'y a pas de nouvel index, car le découpage est celui du TP 2, et le TP démarre donc vite. La première étape est le rewriter, à tester en conversation dans l'onglet Chat avant l'évaluation. L'encadré de droite le rappelle : on tape « Et en 2020 ? » et on lit la requête réécrite dans la trace, le meilleur outil pour comprendre un échec de multi-tours. La deuxième étape est le contexte : voisins de même section, doublons, ordre et budget. Insistez sur la condition « même section », qui évite la régression sur les tableaux racontée tout à l'heure. La troisième étape est le prompt, avec la date et le statut dans l'étiquette et RULES_PROMPT. La quatrième étape est l'abstention sous le seuil, sans appeler le LLM. Dans l'onglet Évaluation, on peut cocher d'abord les catégories multi-tours, versions et abstention, puis lancer tout le questionnaire. Posez la question de la slide en fin de TP : pourquoi « Bonjour » et « Quels documents viennent de l'Insee ? » régressent-ils par rapport à p2 ? La réponse est le seuil d'abstention : ce ne sont pas des questions de recherche documentaire, et c'est l'objet de la dernière partie. Ceux qui sont bloqués repartent de solutions/phase-2.zip ; la solution de cette étape est phase-3.zip.</aside>
+</section>

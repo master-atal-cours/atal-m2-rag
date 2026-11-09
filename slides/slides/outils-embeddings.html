@@ -1,0 +1,30 @@
+<section id="outils-embeddings" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Mode d'emploi · rag/encoder.py</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Calculer des embeddings et des similarités</h2>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="width:900px;background:#14213D;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:2px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">V = self.client.embed(textes)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">V.shape  <span style="color:#8C99B8"># (3, 1024) : vecteurs bruts</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F2A65A">V = V / np.linalg.norm(V, axis=1,</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F2A65A">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;keepdims=True)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">q = …  <span style="color:#8C99B8"># la question, encodée de même</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">V @ q  <span style="color:#8C99B8"># similarités cosinus</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#8C99B8"># array([0.581, 0.389, 0.224])</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F2A65A">self.index.vectors @ q  <span style="color:#8C99B8"># search.py</span></p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:22px">
+<p style="font-size:26px;font-weight:600;color:#14213D">textes, et leur similarité avec q</p>
+<div style="display:flex;flex-direction:column;gap:8px"><p style="font-size:24px;line-height:1.35;color:#14213D">« Les amendes peuvent aller jusqu'à 35 000 000 EUR… »</p><div style="display:flex;flex-direction:row;gap:12px;align-items:center"><div style="width:441px;height:28px;background:#E4572E;border-radius:6px"></div><p style="font-size:24px;color:#14213D">0,581</p></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><p style="font-size:24px;line-height:1.35;color:#14213D">« La CNIL a reçu 20 150 plaintes en 2025. »</p><div style="display:flex;flex-direction:row;gap:12px;align-items:center"><div style="width:295px;height:28px;background:#2563A6;border-radius:6px"></div><p style="font-size:24px;color:#14213D">0,389</p></div></div>
+<div style="display:flex;flex-direction:column;gap:8px"><p style="font-size:24px;line-height:1.35;color:#14213D">« Recette de la tarte tatin… »</p><div style="display:flex;flex-direction:row;gap:12px;align-items:center"><div style="width:170px;height:28px;background:#98A2B3;border-radius:6px"></div><p style="font-size:24px;color:#14213D">0,224</p></div></div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:20px">
+<p style="font-size:24px;line-height:1.4;color:#14213D;border-top:3px solid #14213D;padding:12px 0 0 0"><b>Normaliser</b> : le produit scalaire devient le cosinus</p>
+<p style="font-size:24px;line-height:1.4;color:#14213D;border-top:3px solid #14213D;padding:12px 0 0 0"><b>self.index.vectors</b> : vos vecteurs, ligne i = index.chunks[i]</p>
+<p style="font-size:24px;line-height:1.4;color:#14213D;border-top:3px solid #14213D;padding:12px 0 0 0"><b>Cache</b> : un texte n'est envoyé qu'une fois au serveur</p>
+</div>
+<aside>45 s. Cette slide, la sixième du mode d'emploi, montre comment calculer des embeddings et des similarités dans rag/encoder.py. L'encoder est le premier composant que les étudiants écrivent. Le client fourni, self.client.embed, envoie une liste de textes au serveur et renvoie une matrice, ici de forme (3, 1024) : un vecteur de 1 024 nombres par texte. Le travail de l'encoder est de normaliser chaque vecteur, en le divisant par sa norme. Une fois normalisés, le produit scalaire de deux vecteurs est leur similarité cosinus. Avec bge-m3 servi par Ollama, les vecteurs arrivent déjà normalisés, mais ce n'est pas vrai de tous les modèles ni de tous les serveurs : on normalise toujours. La question est encodée de la même façon, et V @ q donne les trois similarités. Les valeurs à droite sont réelles : la phrase sur les amendes est la plus proche avec 0,581, celle sur les 20 150 plaintes vient ensuite avec 0,389, et la recette de tarte tatin est la plus lointaine avec 0,224. À l'indexation, les vecteurs de tous les passages sont rangés dans self.index.vectors, la ligne i correspondant à index.chunks[i]. Dans search.py, self.index.vectors @ q donne en une seule opération le score de chaque passage. Le cache envoie chaque texte une seule fois au serveur, ce qui rend le rechargement du code presque instantané après la première indexation.</aside>
+</section>

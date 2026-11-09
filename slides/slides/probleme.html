@@ -1,0 +1,31 @@
+<section id="probleme" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Le problème</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Un LLM ne connaît pas vos documents</h2>
+<div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:32px">
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<x-icon name="Clock" style="color:#E4572E;width:64px;height:64px"></x-icon>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;line-height:1.15;color:#14213D">Figé</h3>
+<p style="font-size:26px;line-height:1.4;color:#475467">Il ignore tout ce qui est postérieur à son entraînement.</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<x-icon name="Lock" style="color:#E4572E;width:64px;height:64px"></x-icon>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;line-height:1.15;color:#14213D">Privé</h3>
+<p style="font-size:26px;line-height:1.4;color:#475467">Votre documentation interne n'est pas dans ses poids.</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<x-icon name="Warning" style="color:#E4572E;width:64px;height:64px"></x-icon>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;line-height:1.15;color:#14213D">Plausible</h3>
+<p style="font-size:26px;line-height:1.4;color:#475467">Faute de savoir, il complète avec ce qui semble probable.</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<x-icon name="Search" style="color:#E4572E;width:64px;height:64px"></x-icon>
+<h3 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;line-height:1.15;color:#14213D">Invérifiable</h3>
+<p style="font-size:26px;line-height:1.4;color:#475467">Une réponse doit citer sa source pour être auditée.</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;flex-direction:row;gap:32px;align-items:center">
+<p style="font-size:30px;line-height:1.4;color:#475467;flex:1">Réentraîner le modèle à chaque mise à jour ? Coûteux, lent, et la connaissance apprise reste invérifiable. Le <i>fine-tuning</i> règle un <b>comportement</b> (format, style, tâche), pas une <b>connaissance</b> qui change.</p>
+</div>
+<aside>1 min 30. Cette slide explique pourquoi le RAG existe : un LLM ne connaît pas vos documents. Présentez les quatre limites d'un LLM seul face à une base documentaire d'entreprise, carte par carte. Il est figé : il ignore tout ce qui est postérieur à son entraînement. Il ignore le privé : votre documentation interne n'est pas dans ses poids. Il reste plausible : faute de savoir, il complète avec ce qui semble probable, et c'est ce qu'on appelle une hallucination. La quatrième limite est qu'il est invérifiable : une réponse doit citer sa source pour pouvoir être auditée. Posez la question à la salle : pourquoi ne pas simplement fine-tuner le modèle sur les documents ? La réponse attendue reprend le bandeau du bas : réentraîner à chaque mise à jour est coûteux et lent, et la connaissance apprise reste invérifiable. De plus, le modèle mémorise mal les détails comme un montant, une exception ou un numéro d'article. Insistez sur la conclusion : le fine-tuning règle un comportement (format, style, tâche), pas une connaissance qui change. Faites la transition : la connaissance, on va la chercher au moment de répondre, et c'est l'idée du RAG.</aside>
+</section>

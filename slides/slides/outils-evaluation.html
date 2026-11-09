@@ -1,0 +1,28 @@
+<section id="outils-evaluation" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Mode d'emploi · onglet Évaluation</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Lire l'évaluation</h2>
+<div style="display:flex;flex-direction:row;gap:40px;align-items:flex-start">
+<div style="width:1040px;display:flex;flex-direction:column;gap:16px">
+<table style="font-size:24px;color:#14213D">
+<tr style="background:#D0D5DD"><th style="width:13%">id</th><th style="width:19%">attendu</th><th style="width:36%">réponse du système</th><th style="width:32%">remarque</th></tr>
+<tr style="background:#FDFCF9"><td>✅ F1</td><td>25 voix pour</td><td>« … 25 membres ont voté pour… »</td><td></td></tr>
+<tr style="background:#FDFCF9"><td>❌ T4</td><td>17 772</td><td>« … en 2024 est de 16 433. »</td><td>manque : 17 772</td></tr>
+<tr style="background:#FDFCF9"><td>❌ M2</td><td>13 585</td><td>« … il n'est pas indiqué… »</td><td>abstention à tort · documents non retrouvés</td></tr>
+<tr style="background:#FDFCF9"><td>❌ I1</td><td>transparence…</td><td>« … pas possible de répondre… »</td><td>abstention à tort</td></tr>
+</table>
+<p style="font-size:24px;line-height:1.4;color:#475467">… les 41 questions, se remplissant au fil des réponses, et le score par catégorie : <b>Score : 17/41</b></p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<div style="background:#FDFCF9;border-left:6px solid #E4572E;border-radius:8px;padding:12px 18px;display:flex;flex-direction:column;gap:4px"><p style="font-size:24px;font-weight:600;color:#14213D">T4 · bon document, mal lu</p><p style="font-size:24px;line-height:1.4;color:#475467">Le LLM donne la valeur de 2023.</p></div>
+<div style="background:#FDFCF9;border-left:6px solid #2563A6;border-radius:8px;padding:12px 18px;display:flex;flex-direction:column;gap:4px"><p style="font-size:24px;font-weight:600;color:#14213D">M2 · document manqué</p><p style="font-size:24px;line-height:1.4;color:#475467">« Et en 2020 ? » seul ne dit pas quoi chercher.</p></div>
+<div style="background:#FDFCF9;border-left:6px solid #F2A65A;border-radius:8px;padding:12px 18px;display:flex;flex-direction:column;gap:4px"><p style="font-size:24px;font-weight:600;color:#14213D">I1 · abstention à tort</p><p style="font-size:24px;line-height:1.4;color:#475467">Le règlement est retrouvé, pas son article 50.</p></div>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:20px">
+<p style="font-size:24px;line-height:1.4;color:#14213D;border-top:3px solid #14213D;padding:12px 0 0 0"><b>Catégories</b> à cocher, puis <b>Lancer l'évaluation</b></p>
+<p style="font-size:24px;line-height:1.4;color:#14213D;border-top:3px solid #14213D;padding:12px 0 0 0"><b>runs/</b> garde chaque évaluation ; <b>data/questions.toml</b> : ajoutez vos questions</p>
+<p style="font-size:24px;line-height:1.4;color:#14213D;border-top:3px solid #14213D;padding:12px 0 0 0">Dans le terminal : <b>uv run rag eval --only tableau,M2 -v</b></p>
+</div>
+<aside>1 min 30. Cette slide, la dernière du mode d'emploi, apprend à lire l'onglet Évaluation. L'onglet pose les 41 questions au système et note chaque réponse automatiquement : présence des éléments attendus, ou abstention quand la réponse n'est pas dans le corpus. Le tableau est un extrait réel de l'évaluation de la phase 1, avec la réponse attendue à côté de celle du système, et le score se remplit au fil des réponses jusqu'à 17/41. F1 est réussie : les 25 voix pour sont dans la réponse. T4 répond 16 433 au lieu de 17 772 : le bon document est là, mais le CSV des plaintes est un tableau aplati et le LLM a pris la valeur de 2023. M2 s'abstient à tort, avec la remarque « documents non retrouvés » : « Et en 2020 ? », cherché seul, ne dit pas quoi chercher. I1 s'abstient à tort : le règlement est retrouvé, mais pas son article 50. La remarque « documents non retrouvés » sépare deux causes d'échec : la forme du passage pour T4, la recherche pour M2. Pour I1, le diagnostic juge le document et pas le passage, d'où l'intérêt de lire la réponse. Pour aller plus vite, on coche quelques catégories puis on clique sur « Lancer l'évaluation », ou on lance uv run rag eval --only tableau,M2 -v dans le terminal. Chaque évaluation est gardée dans runs/, et les étudiants peuvent ajouter leurs propres questions dans data/questions.toml.</aside>
+</section>

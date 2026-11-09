@@ -1,0 +1,32 @@
+{
+  "v": 4,
+  "createdOnFiles": {"v": 1, "at": "2026-11-09T13:40:00Z"},
+  "lists": "css",
+  "title": "RAG — du naïf au routage (M2 ATAL 2026)",
+  "cover": "cover",
+  "order": [
+    "cover", "deroule", "probleme", "idee", "corpus", "questionnaire", "methode",
+    "p1-titre", "p1-indexation", "p1-embeddings", "p1-recherche", "p1-prompt",
+    "outils-depot", "outils-installation", "outils-commandes", "outils-pipeline", "outils-documents", "outils-embeddings", "outils-llm", "outils-evaluation",
+    "p1-attendu", "p1-tp",
+    "p2-titre", "p2-bilan", "p2-echecs", "p2-structure", "p2-chunking", "p2-tableaux", "p2-lexical", "p2-rrf", "p2-citations", "p2-outils", "p2-attendu", "p2-tp",
+    "p3-titre", "p3-bilan", "p3-multitours", "p3-reecriture", "p3-versions", "p3-contexte", "p3-abstention", "p3-injection", "p3-outils", "p3-attendu", "p3-tp",
+    "p4-titre", "p4-bilan", "p4-limites", "p4-routeur", "p4-sortie", "p4-sql", "p4-garde-fous", "p4-agents", "p4-outils", "p4-attendu", "p4-tp",
+    "bilan", "retenir", "plus-loin", "merci"
+  ],
+  "sections": {
+    "intro": {"description": "Pourquoi le RAG, le corpus fil rouge et la méthode de la séance", "start": "cover"},
+    "p1": {"description": "Partie 1 — le RAG naïf : découper, vectoriser, chercher, générer", "start": "p1-titre"},
+    "outils": {"description": "Mode d'emploi du TP : ce qui est fourni, comment s'en servir, et ce qui est attendu", "start": "outils-depot"},
+    "p2": {"description": "Partie 2 — mieux découper, mieux chercher : structure, tableaux, recherche hybride, citations", "start": "p2-titre"},
+    "p3": {"description": "Partie 3 — conversation, contexte et versions : réécriture, voisins, métadonnées, abstention", "start": "p3-titre"},
+    "p4": {"description": "Partie 4 — router chaque question vers le bon outil : SQL, catalogue, conversation, agents", "start": "p4-titre"},
+    "fin": {"description": "Bilan des quatre phases et pistes pour aller plus loin", "start": "bilan"}
+  },
+  "faces": {
+    "space-grotesk": {"family": "Space Grotesk", "href": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"},
+    "inter": {"family": "Inter", "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"},
+    "jetbrains-mono": {"family": "JetBrains Mono", "href": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap"}
+  },
+  "designSystems": []
+}

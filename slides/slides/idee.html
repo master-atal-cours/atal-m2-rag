@@ -1,0 +1,26 @@
+<section id="idee" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:24px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">L'idée</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Chercher d'abord, répondre ensuite</h2>
+<p style="font-size:30px;line-height:1.4;color:#475467">Comme un examen à livre ouvert : le modèle n'a pas à tout savoir, il doit savoir lire ce qu'on lui apporte.</p>
+<!-- Q 0,200,256,120  R 352,200,256,120  P 704,200,256,120  L 1056,200,256,120  A 1408,200,256,120  KB 352,456,256,112 -->
+<div style="position:relative;width:1664px;height:580px">
+<div style="position:absolute;left:0;top:200px;width:256px;height:120px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;text-align:center;line-height:1.2;color:#14213D">Question</p></div>
+<div style="position:absolute;left:352px;top:200px;width:256px;height:120px;background:#F6D3BC;border:2px solid #E4572E;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;text-align:center;line-height:1.2;color:#14213D">Recherche</p></div>
+<div style="position:absolute;left:704px;top:200px;width:256px;height:120px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;text-align:center;line-height:1.2;color:#14213D">Passages<br>pertinents</p></div>
+<div style="position:absolute;left:1056px;top:200px;width:256px;height:120px;background:#14213D;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;text-align:center;line-height:1.2;color:#F7F5F0">LLM</p></div>
+<div style="position:absolute;left:1408px;top:200px;width:256px;height:120px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;text-align:center;line-height:1.2;color:#14213D">Réponse<br>+ sources</p></div>
+<div style="position:absolute;left:352px;top:456px;width:256px;height:112px;background:#E4E7EC;border:2px solid #98A2B3;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:28px;text-align:center;line-height:1.2;color:#14213D">Base<br>documentaire</p></div>
+<x-connector x1="256" y1="260" x2="352" y2="260" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="608" y1="260" x2="704" y2="260" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="960" y1="260" x2="1056" y2="260" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="1312" y1="260" x2="1408" y2="260" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="480" y1="456" x2="480" y2="320" style="color:#98A2B3;border-width:3px"></x-connector>
+<x-connector x1="128" y1="200" x2="128" y2="120" head="none" style="color:#E4572E;border-width:3px;border-style:dashed"></x-connector>
+<x-connector x1="128" y1="120" x2="1184" y2="120" head="none" style="color:#E4572E;border-width:3px;border-style:dashed"></x-connector>
+<x-connector x1="1184" y1="120" x2="1184" y2="200" style="color:#E4572E;border-width:3px;border-style:dashed"></x-connector>
+<p style="position:absolute;left:448px;top:64px;width:640px;font-size:24px;color:#B5401E;text-align:center">la question est aussi transmise au LLM</p>
+<p style="position:absolute;left:704px;top:352px;width:608px;font-size:24px;line-height:1.4;color:#475467">On ne donne au modèle que quelques extraits : sa fenêtre de contexte est limitée, et le bruit nuit à la réponse.</p>
+<p style="position:absolute;left:0;top:352px;width:300px;font-size:24px;line-height:1.4;color:#475467">« Que prévoit l'article 50 du règlement sur l'IA ? »</p>
+</div>
+<aside>1 min 30. Cette slide présente le principe du RAG : chercher d'abord, répondre ensuite. RAG signifie Retrieval-Augmented Generation, soit génération augmentée par la recherche. Citez l'analogie en haut de la slide : c'est un examen à livre ouvert, où le modèle n'a pas à tout savoir mais doit savoir lire ce qu'on lui apporte. Suivez le schéma de gauche à droite avec l'exemple « Que prévoit l'article 50 du règlement sur l'IA ? ». La question part vers la recherche, qui interroge la base documentaire et en ramène les passages pertinents. Ces passages vont au LLM, qui produit une réponse accompagnée de ses sources. La flèche du bas rappelle que la question est aussi transmise au LLM, pas seulement à la recherche. Faites une première remarque qui reviendra toute la séance : la réponse ne peut pas être meilleure que la recherche. Si le bon passage n'est pas retrouvé, le meilleur LLM du monde ne peut pas répondre. Lisez la note du bas pour la seconde remarque : on ne donne au modèle que quelques extraits, car sa fenêtre de contexte est limitée et le bruit nuit à la réponse. Il faut donc choisir, et bien choisir.</aside>
+</section>

@@ -1,0 +1,20 @@
+# Configuration du TP. Ne modifiez pas ce fichier : mettez vos réglages dans
+# config.local.toml (ignoré par git), avec seulement les clés à changer.
+
+[api]                   # par défaut : Ollama sur votre machine
+host = "localhost"
+port = 11434
+api_key = "EMPTY"
+
+[llm]
+model = "qwen3.5:9b"
+temperature = 0.0
+max_tokens = 1024
+extra_body = { reasoning_effort = "none" }   # désactive la « réflexion » du modèle
+
+[embeddings]
+model = "bge-m3"
+provider = "api"        # "local" : calcul sur votre machine (uv sync --extra local)
+
+[rag]
+top_k = 5               # nombre de passages fournis au LLM

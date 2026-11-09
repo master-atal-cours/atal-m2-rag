@@ -1,0 +1,29 @@
+<section id="methode" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">La méthode</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Mesurer, diagnostiquer, puis seulement corriger</h2>
+<div style="display:flex;flex-direction:row;gap:64px;align-items:center">
+<!-- I 0,0,300,120  E 420,0,300,120  D 420,300,300,120  A 0,300,300,120 -->
+<div style="position:relative;width:720px;height:440px">
+<div style="position:absolute;left:0;top:0;width:300px;height:120px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;color:#14213D">1 · Implémenter</p></div>
+<div style="position:absolute;left:420px;top:0;width:300px;height:120px;background:#F6D3BC;border:2px solid #E4572E;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;color:#14213D">2 · Évaluer</p></div>
+<div style="position:absolute;left:420px;top:300px;width:300px;height:120px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;color:#14213D">3 · Diagnostiquer</p></div>
+<div style="position:absolute;left:0;top:300px;width:300px;height:120px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;color:#14213D">4 · Améliorer</p></div>
+<x-connector x1="300" y1="60" x2="420" y2="60" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="570" y1="120" x2="570" y2="300" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="420" y1="360" x2="300" y2="360" style="color:#14213D;border-width:3px"></x-connector>
+<x-connector x1="150" y1="300" x2="150" y2="120" style="color:#14213D;border-width:3px"></x-connector>
+<p style="position:absolute;left:186px;top:186px;width:348px;font-size:24px;line-height:1.35;text-align:center;color:#475467">une phase du TP = un tour de boucle</p>
+</div>
+<div style="flex:1;background:#14213D;border-radius:20px;padding:36px 40px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#F2A65A">$ uv run rag eval</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#E4E7EC">id  catégorie    réponse  sources</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#E4E7EC">F1  factuel      ✓        ✓</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#E4E7EC">I1  identifiant  ✗        ✓  <span style="color:#F2A65A">← génération</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#E4E7EC">M2  multi-tours  ✗        ✗  <span style="color:#F2A65A">← recherche</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#E4E7EC">Score : 17/41</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<p style="font-size:28px;line-height:1.4;color:#14213D">Deux causes d'échec à toujours distinguer : le bon document <b>n'a pas été retrouvé</b> (recherche), ou il l'a été mais <b>le LLM n'a pas su l'exploiter</b> (contexte, prompt, modèle).</p>
+<aside>1 min. Cette slide présente la méthode de travail : mesurer, diagnostiquer, puis seulement corriger. La boucle à gauche compte quatre étapes : implémenter, évaluer, diagnostiquer, améliorer. Une phase du TP correspond à un tour de boucle. Le terminal à droite montre la sortie de uv run rag eval, avec pour chaque question son identifiant, sa catégorie, la réponse et les sources. La question F1, factuelle, est réussie et sa source a été trouvée. La question I1, de type identifiant, a sa source mais une réponse fausse : le problème vient de la génération. La question M2, multi-tours, échoue sur les deux colonnes : le problème vient de la recherche. La colonne « sources » est le premier outil de diagnostic : elle indique si les documents attendus figuraient dans les passages donnés au LLM. Lisez le bandeau du bas : il faut toujours distinguer deux causes d'échec. Si la source est absente, inutile de retoucher le prompt, car c'est la recherche qu'il faut améliorer. Si la source est présente et la réponse fausse, le problème est en aval : passages morcelés, contexte bruité, consigne ambiguë ou limite du modèle. Précisez que le score affiché, 17/41, est le vrai score de la phase 1 que les étudiants vont implémenter.</aside>
+</section>

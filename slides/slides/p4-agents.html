@@ -1,0 +1,29 @@
+<section id="p4-agents" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Aller plus loin</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Du routeur à l'agent : le LLM choisit ses outils</h2>
+<div style="display:flex;flex-direction:row;gap:56px">
+<!-- L 0,180,280,140 · T1 520,0,420,100 · T2 520,190,420,100 · T3 520,380,420,100 · loop -->
+<div style="position:relative;width:940px;height:480px">
+<div style="position:absolute;left:0;top:170px;width:280px;height:140px;background:#14213D;border-radius:20px;display:flex;align-items:center;justify-content:center"><p style="font-size:30px;font-weight:600;line-height:1.3;text-align:center;color:#F7F5F0">LLM<br><span style="color:#F2A65A">raisonne</span></p></div>
+<div style="position:absolute;left:520px;top:0;width:420px;height:100px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D">chercher_documents(q)</p></div>
+<div style="position:absolute;left:520px;top:190px;width:420px;height:100px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D">interroger_donnees(sql)</p></div>
+<div style="position:absolute;left:520px;top:380px;width:420px;height:100px;background:#FDFCF9;border:2px solid #14213D;border-radius:16px;display:flex;align-items:center;justify-content:center"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#14213D">lister_documents()</p></div>
+<x-connector x1="280" y1="210" x2="400" y2="50" route="hv" head="none" style="color:#E4572E;border-width:3px"></x-connector>
+<x-connector x1="400" y1="50" x2="520" y2="50" style="color:#E4572E;border-width:3px"></x-connector>
+<x-connector x1="280" y1="240" x2="520" y2="240" head="both" style="color:#E4572E;border-width:3px"></x-connector>
+<x-connector x1="280" y1="270" x2="400" y2="430" route="hv" head="none" style="color:#E4572E;border-width:3px"></x-connector>
+<x-connector x1="400" y1="430" x2="520" y2="430" style="color:#E4572E;border-width:3px"></x-connector>
+<p style="position:absolute;left:0;top:330px;width:280px;font-size:24px;line-height:1.3;text-align:center;color:#B5401E">appel, résultat, nouvel appel… puis réponse</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:22px">
+<p style="font-size:28px;line-height:1.4;color:#14213D">Le routeur décide <b>une fois</b>. Un agent décide <b>à chaque étape</b> : chercher, lire, interroger les données, chercher encore, puis répondre.</p>
+<p style="font-size:26px;line-height:1.4;color:#475467">Utile pour les questions en plusieurs temps&#160;: «&#160;Combien de contrôles dans la santé en 2025, et que dit le guide de la CNIL sur ce secteur&#160;?&#160;»</p>
+<p style="font-size:26px;line-height:1.4;color:#475467">En contrepartie : latence, coût, comportement moins prévisible et plus difficile à évaluer.</p>
+<div style="background:#EEF2F6;border-radius:12px;padding:16px 20px;display:flex;flex-direction:column;gap:6px">
+<p style="font-size:26px;line-height:1.4;color:#14213D"><b>Bonus :</b> la boucle d'appel d'outils est fournie.</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">llm.run_tools(messages, tools=[…])</p>
+</div>
+</div>
+</div>
+<aside>1 min 30. Cette slide ouvre une piste pour aller plus loin : passer du routeur à l'agent, où le LLM choisit ses outils. Le schéma place au centre un LLM qui raisonne, relié à trois outils : chercher_documents(q), interroger_donnees(sql) et lister_documents(). La boucle se lit ainsi : appel, résultat, nouvel appel, puis réponse. Le point clé est la différence de décision : le routeur décide une fois, au début, alors qu'un agent décide à chaque étape. On donne au LLM des outils décrits par leur signature et leur docstring, et il choisit de chercher, de lire, d'interroger les données ou de chercher encore avant de répondre. C'est le mécanisme d'appel d'outils des API de LLM. L'agent est utile pour les questions en plusieurs temps, comme « Combien de contrôles dans la santé en 2025, et que dit le guide de la CNIL sur ce secteur ? ». En contrepartie, il apporte de la latence, du coût, un comportement moins prévisible, et il est plus difficile à évaluer et à sécuriser : chaque outil exposé est une capacité donnée au modèle. Le bonus est que la boucle d'appel d'outils est fournie dans rag/src/llm.py, avec llm.run_tools(messages, tools=[…]) : il suffit d'écrire trois fonctions Python documentées. Si l'on demande s'il faut toujours faire un agent, répondez que non : si un routeur suffit, il est plus simple, plus rapide et plus facile à tester.</aside>
+</section>

@@ -1,0 +1,28 @@
+<section id="p2-lexical" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Recherche lexicale</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Le sens ne suffit pas : il faut aussi les mots exacts</h2>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:32px">
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#2563A6">Dense · embeddings</p>
+<p style="font-size:28px;line-height:1.4;color:#14213D">Compare des <b>sens</b> : « amende » trouve « sanction pécuniaire », une question en anglais trouve un texte en français.</p>
+<p style="font-size:26px;line-height:1.4;color:#475467">Confond « article 50 » et « article 52 », un numéro de délibération et un autre.</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Lexicale · BM25</p>
+<p style="font-size:28px;line-height:1.4;color:#14213D">Compte les <b>mots communs</b>, pondérés par leur rareté : « 2024-011 », « 50 », « SIREN » pèsent lourd.</p>
+<p style="font-size:26px;line-height:1.4;color:#475467">Ignore les synonymes et les paraphrases ; dépend du découpage en mots.</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;gap:32px;align-items:stretch">
+<div style="flex:1;background:#14213D;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8">tokenize("Que prévoit l'article 50 du règlement européen sur l'IA ?")</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">['prevoi', 'articl', '50', 'reglem', 'europe', 'ia']</p>
+<p style="font-size:24px;line-height:1.4;color:#C9D1E3">minuscules, sans accents, sans mots-outils, mots tronqués à 6 lettres</p>
+</div>
+<div style="width:620px;background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#14213D">score(q, d) = Σ IDF(t) · tf'(t, d)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">IDF : un mot rare compte plus · tf' : saturé, normalisé par la longueur du passage</p>
+</div>
+</div>
+<aside>2 min. Cette slide explique pourquoi le sens ne suffit pas et qu'il faut aussi chercher les mots exacts. La recherche dense par embeddings compare des sens. Sa force est que « amende » trouve « sanction pécuniaire », et qu'une question en anglais trouve un texte en français avec un modèle multilingue comme bge-m3. Sa faiblesse est qu'elle confond « article 50 » et « article 52 », ou deux numéros de délibération. La recherche lexicale BM25 est la recherche par mots-clés des moteurs classiques. Sa force est qu'elle compte les mots communs pondérés par leur rareté, si bien que « 2024-011 », « 50 » ou « SIREN » pèsent lourd. Sa faiblesse est qu'elle ignore les synonymes et les paraphrases, et qu'elle dépend du découpage en mots. La sortie de tokenize affichée est réelle : la question sur l'article 50 devient « prevoi », « articl », « 50 », « reglem », « europe », « ia ». Les mots sont mis en minuscules, sans accents ni mots-outils, et tronqués à 6 lettres pour rapprocher « règlement » et « réglementation ». La formule somme, pour chaque mot de la requête, son IDF multiplié par sa fréquence tf' dans le passage. L'IDF fait compter davantage un mot rare, et tf' est saturé et normalisé par la longueur du passage.</aside>
+</section>

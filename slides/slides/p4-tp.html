@@ -1,0 +1,27 @@
+<section id="p4-tp" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 4 · 35 minutes</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Router, interroger les données, lire le catalogue</h2>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">1</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>router</b> : les quatre routes de <b>Route</b>, sortie structurée</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">2</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>catalog</b> : la liste des documents dans le prompt</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">3</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>sql</b> : tables, schéma, SQL, exécution, une correction, sinon None</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">4</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>prompt</b> : build_direct pour la route conversation ; puis évaluer</p></div>
+</div>
+<div style="width:700px;background:#14213D;border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8C99B8"># fournis : self.tables (TableStore)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">tables.search(question, k=3)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">tables.schema(noms)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F7F5F0">tables.query(sql)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8"># et pour tester :</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">Chat : la trace montre</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">route, query et sql</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>Pour aller plus loin :</b> un agent avec <b>llm.run_tools</b>, ou vos propres questions dans data/questions.toml.</p>
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>Bloqué ?</b> Repartez de <b>solutions/phase-3.zip</b> ; la solution complète est <b>phase-4.zip</b>.</p>
+</div>
+<aside>1 min, puis 35 min de TP. Cette slide donne la consigne du TP 4 : router, interroger les données et lire le catalogue. Les quatre étapes numérotées se suivent dans cet ordre. D'abord le routeur, avec les quatre routes de Route et la sortie structurée, puis le catalogue, avec la liste des documents dans le prompt. Ensuite l'outil SQL (tables, schéma, SQL, exécution, une correction, sinon None), et enfin build_direct dans prompt pour la route conversation, avant d'évaluer. Le routeur, le catalogue et la route conversation sont rapides à écrire ; le text-to-SQL est le gros morceau. Conseillez d'écrire le SQL d'abord sans la correction, de le tester sur deux ou trois questions d'agrégation, puis d'ajouter la robustesse. Le bloc de code rappelle les outils fournis : self.tables (un TableStore) avec search, schema et query. Pour tester, la trace de l'onglet Chat montre la route, la requête réécrite et le SQL ; c'est aussi l'interface de la démonstration finale. Pour ceux qui ont fini, deux pistes : un agent avec llm.run_tools, ou des questions nouvelles dans data/questions.toml, avec leur réponse de référence. C'est le meilleur test de robustesse, et une bonne introduction au surapprentissage d'un jeu d'évaluation. Les étudiants bloqués repartent de solutions/phase-3.zip, et la solution complète est phase-4.zip.</aside>
+</section>

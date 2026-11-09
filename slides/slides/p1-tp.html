@@ -1,0 +1,28 @@
+<section id="p1-tp" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 1 · 40 minutes</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Implémenter le RAG naïf, puis le mesurer</h2>
+<div style="display:flex;flex-direction:row;gap:48px">
+<div style="flex:1;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">1</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D">Installer, télécharger le corpus, lancer <b>Ollama</b> (ou viser le serveur de l'université), <b>rag check</b>, puis <b>uv run rag</b></p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">2</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D">Compléter <b>chunker</b>, <b>encoder</b>, <b>search</b> et <b>prompt</b></p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">3</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D"><b>Recharger le code</b>, vérifier le découpage (onglet <b>Index</b>), essayer (<b>Chat</b>)</p></div>
+<div style="display:flex;flex-direction:row;gap:20px;align-items:flex-start"><p style="width:48px;font-family:'Space Grotesk', Arial, sans-serif;font-size:36px;font-weight:600;color:#E4572E">4</p><p style="flex:1;font-size:28px;line-height:1.4;color:#14213D">Évaluer (onglet <b>Évaluation</b>) : quelles catégories échouent, et à cause de la recherche ou de la génération ?</p></div>
+</div>
+<div style="width:760px;background:#14213D;border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;color:#8C99B8"># TP1 : à compléter</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">chunker.py  split_fixed(), chunk()</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">encoder.py  encode_passages(),</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;encode_query()</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">search.py&#160;&#160; find()</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#F2A65A">prompt.py&#160;&#160; build()</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8"># le reste est fourni (rag/src) :</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.5;color:#8C99B8"># lecture, clients, interface…</p>
+</div>
+</div>
+<div style="flex:1"></div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>Pour aller plus loin :</b> faites varier la taille et le recouvrement des morceaux, ou k. Le score bouge-t-il ?</p>
+<p style="flex:1;font-size:26px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:24px 28px"><b>Bloqué ?</b> La solution est dans <b>solutions/phase-1.zip</b> : vous repartirez de là au TP 2.</p>
+</div>
+<aside>1 min, puis 40 min de TP. Cette slide donne la consigne du TP 1 : implémenter le RAG naïf, puis le mesurer. Avant de commencer, il faut faire lancer l'interface sur main : le système répond déjà, mais c'est le LLM seul, avec 3 sur 41. L'étape 1 est l'installation : télécharger le corpus, lancer Ollama ou viser le serveur de l'université, vérifier avec rag check, puis lancer uv run rag. L'étape 2 est le cœur du TP : compléter les quatre composants listés à droite. Il s'agit de split_fixed et chunk dans chunker.py, encode_passages et encode_query dans encoder.py, find dans search.py et build dans prompt.py. Chaque méthode tient en une dizaine de lignes guidées par les docstrings, et le reste est fourni dans rag/src. L'étape 3 consiste à recharger le code, vérifier le découpage dans l'onglet Index et essayer dans le Chat ; le premier rechargement après l'encoder prend environ une minute d'embeddings. L'étape 4 est la plus importante : évaluer, puis dire pour chaque catégorie qui échoue si c'est la recherche ou la génération qui est en cause. En circulant, il faut demander aux binômes de noter ces catégories, car on les reprendra au début de la partie 2. Ceux qui ont fini peuvent faire varier la taille, le recouvrement ou k : ils verront qu'aucun réglage ne règle tout. Un étudiant bloqué trouve la solution dans solutions/phase-1.zip, d'où l'on repartira au TP 2.</aside>
+</section>

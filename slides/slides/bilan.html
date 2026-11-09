@@ -1,0 +1,29 @@
+<section id="bilan" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Bilan</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Quatre phases, chacune contre un type d'échec</h2>
+<div style="display:flex;flex-direction:row;gap:64px">
+<div style="width:640px;display:flex;flex-direction:column;gap:16px">
+<div style="height:440px;display:flex;flex-direction:row;align-items:flex-end;gap:24px;border-bottom:3px solid #14213D">
+<div style="width:104px;display:flex;flex-direction:column;align-items:center;gap:10px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#475467">3</p><div style="width:104px;height:26px;background:#C3C9D4;border-radius:10px 10px 0 0"></div></div>
+<div style="width:104px;display:flex;flex-direction:column;align-items:center;gap:10px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#14213D">17</p><div style="width:104px;height:149px;background:#98A2B3;border-radius:10px 10px 0 0"></div></div>
+<div style="width:104px;display:flex;flex-direction:column;align-items:center;gap:10px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#14213D">25</p><div style="width:104px;height:220px;background:#2563A6;border-radius:10px 10px 0 0"></div></div>
+<div style="width:104px;display:flex;flex-direction:column;align-items:center;gap:10px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#14213D">28</p><div style="width:104px;height:246px;background:#2563A6;border-radius:10px 10px 0 0"></div></div>
+<div style="width:104px;display:flex;flex-direction:column;align-items:center;gap:10px"><p style="font-family:'Space Grotesk', Arial, sans-serif;font-size:40px;font-weight:600;color:#E4572E">37</p><div style="width:104px;height:325px;background:#E4572E;border-radius:10px 10px 0 0"></div></div>
+</div>
+<div style="display:flex;flex-direction:row;gap:24px">
+<p style="width:104px;font-size:24px;font-weight:600;text-align:center;color:#14213D">LLM seul</p>
+<p style="width:104px;font-size:24px;font-weight:600;text-align:center;color:#14213D">p1</p>
+<p style="width:104px;font-size:24px;font-weight:600;text-align:center;color:#14213D">p2</p>
+<p style="width:104px;font-size:24px;font-weight:600;text-align:center;color:#14213D">p3</p>
+<p style="width:104px;font-size:24px;font-weight:600;text-align:center;color:#14213D">p4</p>
+</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:22px">
+<p style="font-size:28px;line-height:1.4;color:#14213D;border-left:6px solid #2563A6;padding:4px 0 4px 20px"><b>p2</b> · lecture, découpage, hybride : identifiants, tableaux, une partie des versions</p>
+<p style="font-size:28px;line-height:1.4;color:#14213D;border-left:6px solid #2563A6;padding:4px 0 4px 20px"><b>p3</b> · réécriture, contexte, dates : suites de conversation, versions</p>
+<p style="font-size:28px;line-height:1.4;color:#14213D;border-left:6px solid #E4572E;padding:4px 0 4px 20px"><b>p4</b> · routage, SQL, catalogue : agrégations, questions sur la base, conversation</p>
+<p style="font-size:26px;line-height:1.4;color:#475467;background:#EEF2F6;border-radius:12px;padding:18px 22px">Quatre échecs restent en p4 : un mauvais routage, une ligne de tableau noyée, deux synthèses entre documents.</p>
+</div>
+</div>
+<aside>2 min. Cette slide fait le bilan de la séance : quatre phases, chacune contre un type d'échec. Les cinq colonnes sont des scores réels : 3 pour le LLM seul, puis 17, 25, 28 et 37 pour les quatre solutions. Le premier chiffre est le plus important : le questionnaire ne porte que sur des informations absentes des connaissances du modèle (statistiques de 2025, sanctions de 2026, chartes, webinaire). Le LLM seul ne réussit que trois questions de comportement, et tout le reste vient de la recherche. Les trois lignes de légende relient chaque phase à ce qu'elle a réparé. La phase 2 (lecture, découpage, hybride) répare les identifiants, les tableaux et une partie des versions. La phase 3 (réécriture, contexte, dates) répare les suites de conversation et les versions, et la phase 4 (routage, SQL, catalogue) les agrégations, les questions sur la base et la conversation. Faites remarquer que chaque phase a été motivée par une catégorie d'échecs bien identifiée, pas par une liste de techniques à la mode. La dernière ligne liste les quatre échecs restants : un mauvais routage, la ligne de la Finlande noyée parmi des passages voisins, et deux synthèses qu'il faudrait décomposer en sous-requêtes. Soyez honnête sur la méthode : les prompts du routeur et du SQL ont été réglés pendant la préparation, et en entreprise on garde des questions de test que personne ne regarde.</aside>
+</section>

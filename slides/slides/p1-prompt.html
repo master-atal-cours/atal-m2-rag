@@ -1,0 +1,33 @@
+<section id="p1-prompt" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Génération</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Ce que reçoit le LLM</h2>
+<div style="display:flex;flex-direction:row;gap:56px">
+<div style="width:1020px;display:flex;flex-direction:column;gap:16px">
+<div style="background:#14213D;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:10px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;color:#F2A65A">system</p>
+<p style="font-size:26px;line-height:1.4;color:#F7F5F0">Tu es un assistant qui répond aux questions de l'utilisateur à partir des extraits de documents ci-dessous.</p>
+<div style="display:flex;flex-direction:row;gap:12px">
+<p style="flex:1;font-size:24px;color:#14213D;background:#C9D1E3;border-radius:8px;padding:10px 14px">extrait 1</p>
+<p style="flex:1;font-size:24px;color:#14213D;background:#C9D1E3;border-radius:8px;padding:10px 14px">extrait 2</p>
+<p style="flex:1;font-size:24px;color:#14213D;background:#C9D1E3;border-radius:8px;padding:10px 14px">extrait 3</p>
+<p style="flex:1;font-size:24px;color:#14213D;background:#C9D1E3;border-radius:8px;padding:10px 14px">extrait 4</p>
+<p style="flex:1;font-size:24px;color:#14213D;background:#C9D1E3;border-radius:8px;padding:10px 14px">extrait 5</p>
+</div>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:20px 28px;display:flex;flex-direction:column;gap:6px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;color:#2563A6">user</p><p style="font-size:26px;color:#14213D">Quelles pratiques d'IA sont interdites par le règlement ?</p></div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:20px 28px;display:flex;flex-direction:column;gap:6px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;color:#667085">assistant</p><p style="font-size:26px;color:#14213D">L'article 5 interdit notamment la notation sociale…</p></div>
+<div style="background:#FBE9DE;border:2px solid #E4572E;border-radius:16px;padding:20px 28px;display:flex;flex-direction:column;gap:6px"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:600;color:#B5401E">user · seul message utilisé pour chercher</p><p style="font-size:26px;color:#14213D">Et quelle amende risque-t-on si on ne les respecte pas ?</p></div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<p style="font-size:28px;font-weight:600;color:#14213D">Le budget de contexte</p>
+<div style="display:flex;flex-direction:column">
+<p style="font-size:24px;color:#F7F5F0;background:#14213D;border-radius:12px 12px 0 0;padding:10px 16px">consigne · ~50 tokens</p>
+<p style="font-size:24px;color:#14213D;background:#C9D1E3;padding:72px 16px">5 extraits · ~1 500 tokens</p>
+<p style="font-size:24px;color:#14213D;background:#E4E7EC;padding:20px 16px">conversation</p>
+<p style="font-size:24px;color:#14213D;background:#FDFCF9;border:2px dashed #98A2B3;border-radius:0 0 12px 12px;padding:28px 16px">réservé à la réponse</p>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#475467">Plus d'extraits : plus de chances d'inclure la réponse, mais plus de bruit, de latence et de coût.</p>
+</div>
+</div>
+<aside>1 min 30. Cette slide montre ce que reçoit le LLM au moment de la génération. Le LLM ne voit que des messages, et c'est tout ce qu'il sait de la base documentaire. Le message système contient la consigne, « Tu es un assistant qui répond aux questions de l'utilisateur à partir des extraits de documents ci-dessous », suivie des cinq extraits. Viennent ensuite la conversation : une question sur les pratiques d'IA interdites, la réponse de l'assistant sur l'article 5 et la notation sociale, puis la question de suite. Faites remarquer que la consigne naïve ne dit rien sur les cas où les extraits ne contiennent pas la réponse, ni sur la façon de citer ses sources. Insistez sur le point le plus important : seul le dernier message a servi à chercher. « Et quelle amende risque-t-on si on ne les respecte pas ? » ne dit ni de quel texte ni de quelles pratiques il s'agit. La recherche ramène donc des amendes au hasard, dans le RGPD ou les données de la CNIL, et le LLM voit toute la conversation mais avec les mauvais extraits. Annoncez qu'on y reviendra en partie 3. Présentez la barre du budget de contexte : la consigne prend environ 50 tokens, les cinq extraits environ 1 500, puis viennent la conversation et la place réservée à la réponse. Concluez sur le compromis : plus d'extraits donnent plus de chances d'inclure la réponse, mais aussi plus de bruit, de latence et de coût.</aside>
+</section>

@@ -1,0 +1,35 @@
+[project]
+name = "atal-rag"
+version = "2026.1.0"
+description = "TP RAG du M2 ATAL : un chatbot de questions-réponses sur la réglementation de l'IA en France"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=1.40",          # client des API compatibles OpenAI (vLLM, Ollama, ...)
+    "numpy>=1.26",
+    "rank-bm25>=0.2.2",      # recherche lexicale BM25
+    "pymupdf>=1.24",         # lecture des PDF
+    "python-docx>=1.1",      # lecture des DOCX
+    "openpyxl>=3.1",         # lecture des XLSX
+    "beautifulsoup4>=4.12",  # lecture des pages HTML
+    "lxml>=5.0",
+    "rich>=13.7",            # affichage dans le terminal
+    "gradio>=5.0",           # interface web de chat
+]
+
+[project.optional-dependencies]
+# Embeddings calculés localement (CPU), si le serveur d'embeddings n'est pas disponible
+local = ["sentence-transformers>=3.0"]
+
+[project.scripts]
+rag = "rag.src.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["rag"]
+
+[tool.ruff]
+line-length = 100

@@ -1,0 +1,36 @@
+<section id="p3-outils" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 3 · ce qui est fourni</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Les briques du TP 3</h2>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="width:680px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;font-weight:600;color:#14213D">Réécrire la question : self.llm.chat avec REWRITE_PROMPT</p>
+<p style="align-self:flex-end;width:560px;font-size:24px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:12px 18px">Combien de plaintes la CNIL a-t-elle reçues en 2025 ?</p>
+<p style="align-self:flex-start;width:560px;font-size:24px;line-height:1.4;color:#475467;background:#E4E7EC;border-radius:16px;padding:12px 18px">… elle a reçu 20 150 plaintes en 2025.</p>
+<p style="align-self:flex-end;font-size:24px;line-height:1.4;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:12px 18px">Et en 2020 ?</p>
+<p style="align-self:center;font-size:30px;color:#98A2B3">↓</p>
+<p style="font-size:24px;font-weight:600;line-height:1.4;color:#14213D;background:#FBE9DE;border-left:6px solid #E4572E;padding:14px 20px">«&#160;Combien de plaintes la CNIL a-t-elle reçues en&#160;2020&#160;?&#160;»</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<div style="background:#14213D;border-radius:20px;padding:18px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">Les voisins d'un passage</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#F7F5F0">i = self.index.position[hit.chunk.id]  <span style="color:#8C99B8"># 108</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#F7F5F0">chunks[i - 1], chunks[i + 1]  <span style="color:#8C99B8"># index.chunks</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#F7F5F0">chunk.doc_id, chunk.meta["section"]</p>
+</div>
+<div style="background:#14213D;border-radius:20px;padding:18px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">Les métadonnées d'un document</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#F7F5F0">self.index.documents["insee/tic-…-2025.html"]</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#8C99B8"># {"date": "2026-07", "source": "Insee",</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#8C99B8">#&#160;&#160;"status": "édition 2025 (données 2025)", …}</p>
+</div>
+<div style="background:#14213D;border-radius:20px;padding:18px 24px;display:flex;flex-direction:column;gap:4px">
+<p style="font-size:24px;font-weight:600;line-height:1.3;color:#F2A65A">S'abstenir sans appeler le LLM</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#F7F5F0">hit.details["dense"]  <span style="color:#8C99B8"># similarité cosinus (TP 2)</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#8C99B8"># « Bonjour ! » : au mieux 0.44 &lt; MIN_DENSE_SCORE</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#F7F5F0">return best &lt; MIN_DENSE_SCORE  <span style="color:#8C99B8"># True</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.35;color:#8C99B8"># le pipeline répond alors NOT_FOUND</p>
+</div>
+</div>
+</div>
+<aside>1 min. Cette slide présente les briques fournies pour le TP 3. Le premier bloc montre la réécriture : le rewriter appelle self.llm.chat avec REWRITE_PROMPT et la fin de la conversation. L'exemple est réel : après la réponse sur les 20 150 plaintes de 2025, « Et en 2020 ? » devient « Combien de plaintes la CNIL a-t-elle reçues en 2020 ? ». Le deuxième bloc montre les voisins : self.index.position donne l'indice d'un passage dans index.chunks, ici 108, et chunks[i - 1] et chunks[i + 1] sont ses voisins. Les passages d'un même document y sont consécutifs, dans l'ordre du document. On ne garde un voisin que s'il a le même doc_id et la même section dans chunk.meta, sinon il n'apporte que du bruit. Le troisième bloc montre self.index.documents, qui donne les métadonnées du manifeste : date, source, statut. Ce sont elles qui permettent au LLM d'arbitrer entre la proposition de 2021 et le règlement adopté, ou entre les éditions 2024 et 2025 de l'Insee. Le dernier bloc montre l'abstention : hit.details["dense"], conservé au TP 2, est la similarité cosinus. « Bonjour ! » obtient au mieux 0,44, sous MIN_DENSE_SCORE, donc la méthode renvoie True et le pipeline répond NOT_FOUND sans appeler le LLM. Le seuil de 0,50 est calibré pour bge-m3 et doit être recalibré si on change de modèle d'embeddings. L'index ne change pas : c'est celui du TP 2.</aside>
+</section>

@@ -1,0 +1,575 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Corpus du TP RAG — « IA, données et conformité »
+#
+#  Scénario : vous construisez un chatbot de questions-réponses sur la
+#  réglementation de l'IA en France. La base documentaire mélange
+#  textes réglementaires, guides, statistiques, données ouvertes, chartes et
+#  articles encyclopédiques, dans des formats variés.
+#
+#  Les fichiers ne sont pas versionnés dans le dépôt : ils sont téléchargés depuis
+#  leurs sources officielles par `python scripts/download_corpus.py`.
+#
+#  Champs :
+#    path        chemin local, relatif à data/corpus/
+#    url         adresse de téléchargement
+#    headers     en-têtes HTTP supplémentaires (optionnel)
+#    title       titre lisible du document
+#    collection  regroupement thématique
+#    source      producteur du document
+#    date        date de la version téléchargée (AAAA, AAAA-MM ou AAAA-MM-JJ)
+#    status      statut / version du document (utile pour gérer les versions)
+#    licence     conditions de réutilisation
+#    sql         (optionnel) charger ou non ses tableaux dans la base SQL de la phase 4
+#    sha256      empreinte du fichier attendu (mise à jour par --update-hashes)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Textes réglementaires (XHTML officiels, Office des publications de l'UE) ──
+
+[[documents]]
+path = "reglementation/ue-2024-1689-reglement-ia.html"
+url = "http://publications.europa.eu/resource/celex/32024R1689"
+headers = { Accept = "application/xhtml+xml", Accept-Language = "fra" }
+title = "Règlement (UE) 2024/1689 sur l'intelligence artificielle (règlement sur l'IA, « AI Act »)"
+collection = "réglementation"
+source = "Union européenne — Journal officiel"
+date = "2024-07-12"
+status = "texte adopté, en vigueur"
+licence = "© Union européenne — réutilisation autorisée (décision 2011/833/UE)"
+sha256 = "d8b1a7775f597dc8d49a2bdc91af0dca3bc12ac558b97504685f9534660bb44e"
+
+[[documents]]
+path = "reglementation/ue-2021-206-proposition-reglement-ia.html"
+url = "http://publications.europa.eu/resource/cellar/e0649735-a372-11eb-9585-01aa75ed71a1.0020.03/DOC_1"
+headers = { Accept = "application/xhtml+xml", Accept-Language = "fra" }
+title = "Proposition de règlement établissant des règles harmonisées concernant l'intelligence artificielle, COM(2021) 206 final"
+collection = "réglementation"
+source = "Commission européenne"
+date = "2021-04-21"
+status = "proposition de la Commission, remplacée par le règlement (UE) 2024/1689"
+licence = "© Union européenne — réutilisation autorisée (décision 2011/833/UE)"
+sha256 = "eb789c49253ec6ca1cbf8357f8a3c8fa272f058d27a76cf48b14d20f1347c4b8"
+
+[[documents]]
+path = "reglementation/ue-2016-679-rgpd.html"
+url = "http://publications.europa.eu/resource/celex/32016R0679"
+headers = { Accept = "application/xhtml+xml", Accept-Language = "fra" }
+title = "Règlement (UE) 2016/679 relatif à la protection des données (RGPD)"
+collection = "réglementation"
+source = "Union européenne — Journal officiel"
+date = "2016-05-04"
+status = "texte adopté, applicable depuis le 25 mai 2018"
+licence = "© Union européenne — réutilisation autorisée (décision 2011/833/UE)"
+sha256 = "27a2248cf0cf7c79a3ec7eae30b6e871817230d9f577632fed915181642144c2"
+
+# ── CNIL : guides, recommandations et pages web ──
+
+[[documents]]
+path = "cnil/guide-securite-donnees-personnelles.pdf"
+url = "https://www.cnil.fr/sites/default/files/2026-05/cnil_guide_securite_personnelle.pdf"
+title = "Guide pratique RGPD — Sécurité des données personnelles"
+collection = "cnil"
+source = "CNIL"
+date = "2026-05"
+status = "édition 2024, mise à jour 2026"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "5602bd27bc00e5c593a05679895ba40c9c4d7ebd5b60df5543f65e11467636a8"
+
+[[documents]]
+path = "cnil/recommandation-ia-developpement-2024.pdf"
+url = "https://www.cnil.fr/sites/cnil/files/2024-04/recommandation_sur_l_application_du_rgpd_au_developpement_des_systemes_d_intelligence_artificielle_1.pdf"
+title = "Recommandation sur l'application du RGPD au développement des systèmes d'intelligence artificielle"
+collection = "cnil"
+source = "CNIL"
+date = "2024-04"
+status = "première série de recommandations"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "79a4e29985b92d9b9f9f53e32c88b3bc8c2dc7392039946b9917c25693a3a006"
+
+[[documents]]
+path = "cnil/webinaire-fiches-ia-2024.pdf"
+url = "https://www.cnil.fr/sites/cnil/files/2024-04/webinaire_fiches_ia.pdf"
+title = "Webinaire « Les fiches pratiques IA » (support de présentation)"
+collection = "cnil"
+source = "CNIL"
+date = "2024-04"
+status = "support de présentation"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "37d2333ad6ebac772a2da3d88d70becbf458b2fb270e6ae0e7b2b57c5435a442"
+
+[[documents]]
+path = "cnil/sanctions-prononcees.html"
+url = "https://www.cnil.fr/fr/les-sanctions-prononcees-par-la-cnil"
+title = "Les sanctions prononcées par la CNIL (page web)"
+collection = "cnil"
+source = "CNIL"
+date = "2026-11"
+status = "page web mise à jour en continu"
+licence = "© CNIL — réutilisation avec mention de la source"
+sql = true              # tableaux chargés dans la base SQL (phase 4)
+sha256 = "2fc398c6381ab7007856a4395492d7ac48d14cd369e1be39491b9b2c2db77cc5"
+
+[[documents]]
+path = "cnil/fiches-pratiques-ia.html"
+url = "https://www.cnil.fr/fr/les-fiches-pratiques-ia"
+title = "Les fiches pratiques IA de la CNIL (page web)"
+collection = "cnil"
+source = "CNIL"
+date = "2026-11"
+status = "page web mise à jour en continu"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "e5d53b185e80727130479087a95aad43300f08be4576e7a2ab75bdeab2bccabf"
+
+[[documents]]
+path = "cnil/ia-liste-de-verification.pdf"
+url = "https://www.cnil.fr/sites/default/files/2025-07/ia_liste_de_verification.pdf"
+title = "Développement des systèmes d'IA : que faut-il vérifier ? (liste de vérification)"
+collection = "cnil"
+source = "CNIL"
+date = "2025-07"
+status = "liste de vérification issue des recommandations IA"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "dd3b8cf85d60c1a2093184e14a62df0c1e9197aadec15e18e29bfb4c755de4c2"
+
+[[documents]]
+path = "cnil/fiche-ia-annoter-les-donnees.html"
+url = "https://www.cnil.fr/fr/ia-annoter-les-donnees"
+title = "Fiche pratique IA de la CNIL : annoter les données (page web)"
+collection = "cnil"
+source = "CNIL"
+date = "2026-11"
+status = "fiche pratique publiée"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "0b753264f2e417eeca16661fabe86a06ae4f2774d6cc92ab46e2aa03b5d48c6e"
+
+[[documents]]
+path = "cnil/fiche-ia-securite-du-developpement.html"
+url = "https://www.cnil.fr/fr/ia-garantir-la-securite-du-developpement"
+title = "Fiche pratique IA de la CNIL : garantir la sécurité du développement d'un système d'IA (page web)"
+collection = "cnil"
+source = "CNIL"
+date = "2026-11"
+status = "fiche pratique publiée"
+licence = "© CNIL — réutilisation avec mention de la source"
+sha256 = "62de5e5439831164d10e84b4beffc59e56d1344ba768b783cfd0d79be93ccf66"
+
+# ── CNIL : données ouvertes (data.gouv.fr) ──
+
+[[documents]]
+path = "cnil/donnees/sanctions-montant-amendes-par-annee.csv"
+url = "https://static.data.gouv.fr/resources/sanctions-prononcees-par-la-cnil/20261106-163603/opencnil-sanctions-montant-amendes-par-annee-20261106.csv"
+title = "Montant des amendes prononcées par la CNIL, par année (2012-2025)"
+collection = "données ouvertes"
+source = "CNIL via data.gouv.fr"
+date = "2026-11-06"
+status = "données 2012-2025"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "01a18837a23c2cfbf7f35728ababaf8d88531c1479b0d31588c9fc13308490ee"
+
+[[documents]]
+path = "cnil/donnees/sanctions-par-type-2019-2023.xlsx"
+url = "https://static.data.gouv.fr/resources/sanctions-prononcees-par-la-cnil/20241001-091916/opencnil-sanctions-depuis-2019-maj-sept-2024.xlsx"
+title = "Sanctions prononcées par la CNIL par type de décision (2019-2023)"
+collection = "données ouvertes"
+source = "CNIL via data.gouv.fr"
+date = "2024-09"
+status = "données 2019-2023"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "34f79ce96ae4e3137294732acbe2d33f71f437e853d30625aae1e90ac12612e5"
+
+[[documents]]
+path = "cnil/donnees/plaintes-recues-depuis-1981.csv"
+url = "https://static.data.gouv.fr/resources/plaintes-recues-par-la-cnil/20260519-160142/opencnil-volumes-plaintes-depuis-1981-maj-mai-2026.csv"
+title = "Nombre de plaintes reçues par la CNIL, par année (1981-2025)"
+collection = "données ouvertes"
+source = "CNIL via data.gouv.fr"
+date = "2026-05"
+status = "données 1981-2025"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "e70342a369a9a038fc89cf9955e9b0a76ac8fe4ab58a8bc166ccdac57efbe25b"
+
+[[documents]]
+path = "cnil/donnees/mises-en-demeure-depuis-2014.csv"
+url = "https://static.data.gouv.fr/resources/mises-en-demeure-prononcees-par-la-cnil/20261106-160420/open-cnil-volumes-med-depuis-2014-maj-nov-2026.csv"
+title = "Mises en demeure prononcées par la CNIL, par année (2014-2025)"
+collection = "données ouvertes"
+source = "CNIL via data.gouv.fr"
+date = "2026-11"
+status = "données 2014-2025"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "445fbcaf68bcbb01aac0aae560db4d03041eb9f4d1c736738b4f278c378e47b3"
+
+[[documents]]
+path = "cnil/donnees/controles-2024.csv"
+url = "https://static.data.gouv.fr/resources/controles-realises-par-la-cnil/20261026-183836/open-data-controles-cnil-2024.csv"
+title = "Liste des contrôles réalisés par la CNIL en 2024"
+collection = "données ouvertes"
+source = "CNIL via data.gouv.fr"
+date = "2026-10"
+status = "données 2024"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "4a48105774348b50e2cfd66907268b479e7f0303126481bc2dd018bb30fb8ff0"
+
+[[documents]]
+path = "cnil/donnees/controles-2025.csv"
+url = "https://static.data.gouv.fr/resources/controles-realises-par-la-cnil/20261026-184039/open-data-controles-cnil-2025.csv"
+title = "Liste des contrôles réalisés par la CNIL en 2025"
+collection = "données ouvertes"
+source = "CNIL via data.gouv.fr"
+date = "2026-10"
+status = "données 2025"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "63a5b9a2f78dbbceaf5d90d917b0fbecac1cb96ed2beca6b7fec07a7130c35b0"
+
+# ── Statistiques publiques (Insee) ──
+
+[[documents]]
+path = "insee/tic-entreprises-2024.pdf"
+url = "https://www.insee.fr/fr/statistiques/fichier/version-html/8604126/ip2061.pdf"
+title = "Les technologies de l'information et de la communication dans les entreprises en 2024 (Insee Première n° 2061)"
+collection = "statistiques"
+source = "Insee"
+date = "2025-07"
+status = "édition 2024 (données 2024)"
+licence = "Réutilisation libre avec mention de la source (Insee)"
+sha256 = "7fa29b5ee0b7cc22085de28faeea36453e05d2c8f901cd106d933a153c2138ea"
+
+[[documents]]
+path = "insee/tic-entreprises-2025.html"
+url = "https://www.insee.fr/fr/statistiques/9025878"
+title = "Les technologies de l'information et de la communication dans les entreprises en 2025 (Insee Première n° 2120)"
+collection = "statistiques"
+source = "Insee"
+date = "2026-07"
+status = "édition 2025 (données 2025)"
+licence = "Réutilisation libre avec mention de la source (Insee)"
+sha256 = "4bc3cc3309236c15164f29e0a1989a73226d4ecc1258ed71703d61ecd52bbbb5"
+
+[[documents]]
+path = "insee/tic-entreprises-2025-figures.xlsx"
+url = "https://www.insee.fr/fr/statistiques/fichier/9025878/IP2120.xlsx"
+title = "Données des figures de l'Insee Première n° 2120 (TIC dans les entreprises en 2025)"
+collection = "statistiques"
+source = "Insee"
+date = "2026-07"
+status = "données 2025"
+licence = "Réutilisation libre avec mention de la source (Insee)"
+sha256 = "fb2b8632992e0fc5bfadcd142b45ca6eeb5bc57d0cda53ee25bfb7e687495427"
+
+[[documents]]
+path = "insee/tic-2025-tableau-ia.xlsx"
+url = "https://www.insee.fr/fr/statistiques/fichier/8677762/TICE_2025_table5.xlsx"
+title = "Enquête TIC entreprises 2025 — tableau 5 : intelligence artificielle"
+collection = "statistiques"
+source = "Insee"
+date = "2026"
+status = "données 2025"
+licence = "Réutilisation libre avec mention de la source (Insee)"
+sql = false             # tableau très large (49 colonnes) : exclu de la base SQL
+sha256 = "36e75de9c18b0f54684f0980e3632490d8cfc1fabda1bb5b30e777302d490df9"
+
+# ── Guides Etalab (Markdown, dépôt etalab/guides.etalab.gouv.fr) ──
+
+[[documents]]
+path = "etalab/guide-pseudonymisation/README.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/pseudonymisation/README.md"
+title = "Guide de la pseudonymisation des documents (Etalab) — présentation"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "923b3acd00d72c733478717d83f124f7e84f6f092cb0e6b2c0498ba39a35f7ad"
+
+[[documents]]
+path = "etalab/guide-pseudonymisation/1-pourquoi-et-comment.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/pseudonymisation/1-pourquoi-et-comment.md"
+title = "Guide de la pseudonymisation — 1. Pourquoi et comment pseudonymiser"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "fafb4701ecc47cb9cfe255376c241aa31002a25a81d9892cb1ab48bbfb9e0238"
+
+[[documents]]
+path = "etalab/guide-pseudonymisation/2-les-etapes.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/pseudonymisation/2-les-etapes.md"
+title = "Guide de la pseudonymisation — 2. Les étapes"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "4e7b481b770bf29f107ed65d53da31f149793ddca72327c0106ba64c3a74108f"
+
+[[documents]]
+path = "etalab/guide-pseudonymisation/3-en-pratique.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/pseudonymisation/3-la-pseudonymisation-en-pratique.md"
+title = "Guide de la pseudonymisation — 3. La pseudonymisation en pratique"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "fdee2e1185389d5c379f3f5a486a93ae2c0b445372ff658909cbf73d70b126a0"
+
+[[documents]]
+path = "etalab/guide-pseudonymisation/4-lexique.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/pseudonymisation/4-lexique.md"
+title = "Guide de la pseudonymisation — 4. Lexique"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "531782b1c0af8b8ff043fafc98e99a9a549a8f06ae158293964c44fc0670e00a"
+
+[[documents]]
+path = "etalab/guide-annotation/README.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/annotation/README.md"
+title = "Guide de l'annotation de données pour l'IA (Etalab) — présentation"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "ef7827157299c555cfb3a2cbed2a0cd437a4b4184c90f8642d4515ef412443ae"
+
+[[documents]]
+path = "etalab/guide-annotation/1-annotation-ia.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/annotation/1-annotation-ia.md"
+title = "Guide de l'annotation — 1. L'annotation pour l'IA"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "3d939a7121c7caf136501e8e1301db850f1fadcdbbe49a82aa1753c591c7575d"
+
+[[documents]]
+path = "etalab/guide-annotation/2-preparer-campagne.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/annotation/2-preparer-campagne-annotation.md"
+title = "Guide de l'annotation — 2. Préparer une campagne d'annotation"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "efa60cd86fe6410017f48365a769688a2ee49a2c81f5473ae1a8cb64daf95db4"
+
+[[documents]]
+path = "etalab/guide-annotation/3-conduire-campagne.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/annotation/3-conduire-campagne-annotation.md"
+title = "Guide de l'annotation — 3. Conduire une campagne d'annotation"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "5898157f33b86d7c43a6c271887f7360dafbeb218f66704645d35d33f12d6381"
+
+[[documents]]
+path = "etalab/guide-annotation/4-logiciels.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/annotation/4-les-logiciels-d-annotation.md"
+title = "Guide de l'annotation — 4. Les logiciels d'annotation"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "d29257edcd38bdcf937c363041fe73d4b419ba4b97d4c264235fcee898128f4e"
+
+[[documents]]
+path = "etalab/guide-annotation/5-lexique.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/annotation/5-lexique.md"
+title = "Guide de l'annotation — 5. Lexique"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "0fba21c78adfa263903864e5515e0fb0234c9524b991d378fe22fc924ffa0689"
+
+[[documents]]
+path = "etalab/guide-algorithmes-publics/0-guide.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/algorithmes/0-guide.md"
+title = "Guide des algorithmes publics (Etalab) — 0. Expliquer les algorithmes publics"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "832ece100f74bd12096a225cdf5c2e07d7ad7d165207e9cac311383dab515b20"
+
+[[documents]]
+path = "etalab/guide-algorithmes-publics/1-mention.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/algorithmes/1-mention.md"
+title = "Guide des algorithmes publics — 1. La mention explicite"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "acd0f5e3f8325c3d3b46a17b1ba1cf575757a8eeb5fd45a99e2aeff2fec4fb42"
+
+[[documents]]
+path = "etalab/guide-algorithmes-publics/2-inventaire.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/algorithmes/2-inventaire.md"
+title = "Guide des algorithmes publics — 2. L'inventaire des algorithmes"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "e6bd8cb1df6400c3affca2567e3358ee20c824b913a3ee1ed433c4c3844b6435"
+
+[[documents]]
+path = "etalab/guide-algorithmes-publics/3-ressources.md"
+url = "https://raw.githubusercontent.com/etalab/guides.etalab.gouv.fr/57b72b126b0e10435f8a49440a190b598b0f88e9/algorithmes/3-ressources.md"
+title = "Guide des algorithmes publics — 3. Ressources"
+collection = "guides etalab"
+source = "Etalab (DINUM)"
+date = "2024-05-27"
+status = "guide publié"
+licence = "Licence Ouverte 2.0"
+sha256 = "1ca61d4224fbd54d80d1c40d01b62805529357c9fe50f2ea3a36341cb26aeea0"
+
+# ── Chartes d'établissements d'enseignement supérieur ──
+
+[[documents]]
+path = "universites/charte-ia-uco.docx"
+url = "https://nantes-bu.uco.fr/sites/default/files/documents/charte-pour-l-usage-de-l-intelligence-artificielle-a-l-universite-catholique-de-l-ouest.docx"
+title = "Charte pour l'usage de l'intelligence artificielle à l'Université catholique de l'Ouest"
+collection = "chartes"
+source = "Université catholique de l'Ouest (UCO)"
+date = "2025"
+status = "charte en vigueur"
+licence = "Document public de l'établissement — usage pédagogique"
+sha256 = "e067c6aafd12e3857db431c3872180b797ad84e7cadc74a233b43334ea0def01"
+
+[[documents]]
+path = "universites/charte-ia-uca.pdf"
+url = "https://www.uca.fr/medias/fichier/delib-ca-20250627-04-charte-ia_1751379185214-pdf"
+title = "Charte relative à l'usage de l'intelligence artificielle — Université Clermont Auvergne (délibération du CA du 27 juin 2025)"
+collection = "chartes"
+source = "Université Clermont Auvergne (UCA)"
+date = "2025-06-27"
+status = "charte adoptée"
+licence = "Document public de l'établissement — usage pédagogique"
+sha256 = "67041ad6489536cae6996993eb476a74f5f4f18ba5d50382d98b540879dfd1ef"
+
+# ── Données sur les modèles de langage (compar:IA, ministère de la Culture) ──
+
+[[documents]]
+path = "modeles/comparia-modeles.json"
+url = "https://raw.githubusercontent.com/betagouv/ComparIA/18eda3b87368ee7f7a09e4f55f71970264848d1f/data/legacy/generated-models.json"
+title = "compar:IA — catalogue des modèles de langage comparés (caractéristiques, licences, consommation)"
+collection = "modèles"
+source = "compar:IA (ministère de la Culture), dépôt betagouv/ComparIA"
+date = "2026-08-14"
+status = "export du catalogue"
+licence = "Apache-2.0"
+sha256 = "559f3d7d9ab2c515d92a865476f374dda7f4e682e2786f725a4b6c87a769fbe6"
+
+# ── Conseil national du numérique (ODT, data.gouv.fr) ──
+
+[[documents]]
+path = "cnnum/synthese-donnees-traces-algorithmes-2015.odt"
+url = "https://static.data.gouv.fr/resources/concertation-nationale-sur-le-numerique-2/20150526-160024/3_synthese_-_theme_2_-_donnees_traces_et_algorithmes.odt"
+title = "Concertation nationale sur le numérique — synthèse « Données, traces et algorithmes »"
+collection = "rapports"
+source = "Conseil national du numérique via data.gouv.fr"
+date = "2015-05"
+status = "synthèse de concertation"
+licence = "Licence Ouverte (Etalab)"
+sha256 = "35f202589de81b41393545b8c71a0031fce55c9ef96c2246eab33f4ddac92f0e"
+
+# ── Wikipédia (HTML, révisions figées) ──
+
+[[documents]]
+path = "wikipedia/reglement-intelligence-artificielle.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/R%C3%A8glement_sur_l%27intelligence_artificielle/239338212"
+title = "Wikipédia — Règlement sur l'intelligence artificielle"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 239338212"
+date = "2026-09-08"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "d1f81164a1aff5cc299bc247ddd25c67be9a40227352122f2775c9c655442b24"
+
+[[documents]]
+path = "wikipedia/rgpd.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/R%C3%A8glement_g%C3%A9n%C3%A9ral_sur_la_protection_des_donn%C3%A9es/240406447"
+title = "Wikipédia — Règlement général sur la protection des données"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 240406447"
+date = "2026-10-15"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "0b9b2a22b49d6df45ba46969ae5b5bf3affbf8af5d52493cfeaa07d58220173c"
+
+[[documents]]
+path = "wikipedia/cnil.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/Commission_nationale_de_l%27informatique_et_des_libert%C3%A9s/240982322"
+title = "Wikipédia — Commission nationale de l'informatique et des libertés"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 240982322"
+date = "2026-11-03"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "44c49aadc0994dff8f0f0a8d5d26b082c16c5801e20026a157f9b81cd275a899"
+
+[[documents]]
+path = "wikipedia/grand-modele-de-langage.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/Grand_mod%C3%A8le_de_langage/240414254"
+title = "Wikipédia — Grand modèle de langage"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 240414254"
+date = "2026-10-16"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "b96789a423cab70e3fdb5c81097f707d8138ead0bd4fa17c8ba202f30d64a5db"
+
+[[documents]]
+path = "wikipedia/generation-enrichissement-contextuel.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/G%C3%A9n%C3%A9ration_%C3%A0_enrichissement_contextuel/240057272"
+title = "Wikipédia — Génération à enrichissement contextuel (RAG)"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 240057272"
+date = "2026-10-04"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "568776cd23357fb442861847425a526d96bac7889ee83722e18947230182ad3a"
+
+[[documents]]
+path = "wikipedia/hallucination-ia.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/Hallucination_(intelligence_artificielle)/240944031"
+title = "Wikipédia — Hallucination (intelligence artificielle)"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 240944031"
+date = "2026-11-02"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "427b27b56d7e287fef141599bc1328d7c64b154de5b4a5ea408099841f108586"
+
+[[documents]]
+path = "wikipedia/mistral-ai.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/Mistral_AI/240833616"
+title = "Wikipédia — Mistral AI"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 240833616"
+date = "2026-10-29"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "dbecaf8e7329d9d897681e613b58cbe0e6a4cc30b71d80a1ba392251d2926373"
+
+[[documents]]
+path = "wikipedia/reconnaissance-entites-nommees.html"
+url = "https://fr.wikipedia.org/api/rest_v1/page/html/Reconnaissance_d%27entit%C3%A9s_nomm%C3%A9es/235345254"
+title = "Wikipédia — Reconnaissance d'entités nommées"
+collection = "encyclopédie"
+source = "Wikipédia (fr), révision 235345254"
+date = "2026-04-19"
+status = "article encyclopédique"
+licence = "CC BY-SA 4.0"
+sha256 = "25ccd5bc1a53f29bdbd939436a7e054491853c568139fcb5c69d1aab923aaae2"

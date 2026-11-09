@@ -1,0 +1,34 @@
+<section id="outils-documents" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Mode d'emploi · rag/src/documents.py</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Un document : son texte brut, ou ses blocs</h2>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="width:960px;background:#14213D;border-radius:20px;padding:28px 32px;display:flex;flex-direction:column;gap:2px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">def chunk(self, doc):  <span style="color:#8C99B8"># chunker.py</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">doc  <span style="color:#8C99B8"># universites/charte-ia-uco.docx</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">doc.id, doc.format  <span style="color:#8C99B8"># chemin, "docx"</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">doc.meta["date"]  <span style="color:#8C99B8"># "2025" (+ status, source…)</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">doc.raw_text[:40]</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#8C99B8"># "Charte pour l'Usage de l'Intelligence…"</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#F7F5F0">doc.blocks[:3]</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#8C99B8"># Block(heading, level=1, "Charte pour…")</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#8C99B8"># Block(heading, level=2, "PRÉAMBULE")</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#8C99B8"># Block(text, "L'intelligence artificielle…")</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<p style="font-size:26px;font-weight:600;color:#14213D">Les champs d'un Block</p>
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;flex-direction:row;background:#D0D5DD"><p style="width:30%;padding:8px 14px;font-size:24px;font-weight:600;line-height:1.4;color:#14213D">champ</p><p style="width:70%;padding:8px 14px;font-size:24px;font-weight:600;line-height:1.4;color:#14213D">contenu</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:30%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">kind</p><p style="width:70%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">"heading", "text", "table"</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:30%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">text</p><p style="width:70%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">le contenu</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:30%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">level</p><p style="width:70%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">niveau de titre : 1, 2…</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:30%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">page</p><p style="width:70%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">page du PDF</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:30%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">rows</p><p style="width:70%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">lignes ; rows[0] = en-tête</p></div>
+</div>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.45;color:#14213D;background:#FDFCF9;border:1px solid #D0D5DD;border-radius:12px;padding:12px 16px">rows[0][:3] → ['Année', '1981', '1982']<br>rows[1][0] → 'Nombre de plaintes reçues'<br>rows[1][1:3] → ['136', '151']</p>
+</div>
+</div>
+<p style="font-size:26px;line-height:1.4;color:#14213D">TP 1 : <b>doc.raw_text</b>, le texte tel que l'extrairait un outil générique · TP 2 : <b>doc.blocks</b>, la structure.</p>
+<aside>1 min. Cette slide, la cinquième du mode d'emploi, présente l'objet Document que reçoit le chunker. Les étudiants n'ont pas à lire les fichiers eux-mêmes : la méthode chunk de chunker.py reçoit chaque document déjà analysé, et les 48 documents sont lus une seule fois, avec un cache. Le code montre un document réel, la charte de l'UCO au format docx. Son identifiant doc.id est son chemin dans data/corpus, et doc.format vaut « docx ». Ses métadonnées viennent du manifeste : doc.meta["date"] vaut « 2025 », avec aussi le statut et la source. Le document a deux représentations. doc.raw_text est le texte brut, qui commence ici par « Charte pour l'Usage de l'Intelligence… ». doc.blocks est la liste des blocs : un titre de niveau 1, un titre de niveau 2 « PRÉAMBULE », puis un paragraphe. Le tableau détaille les champs d'un Block : kind (heading, text ou table), text, level pour le niveau de titre, page pour les PDF, et rows pour les lignes d'un tableau. L'exemple en bas est le CSV des plaintes de la CNIL : rows[0] est l'en-tête avec les années, et rows[1] commence par « Nombre de plaintes reçues », puis 136 et 151. Le texte brut sert au TP 1, tel que l'extrairait un outil générique, et les blocs servent au TP 2. Il faut donner l'astuce : l'onglet Index affiche les passages produits pour un document, et python -m rag.src.documents suivi d'un chemin affiche ses blocs.</aside>
+</section>

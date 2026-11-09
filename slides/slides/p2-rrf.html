@@ -1,0 +1,36 @@
+<section id="p2-rrf" data-transition="fade" style="background:#F7F5F0;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:28px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Recherche hybride</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Ni l'un ni l'autre seul : la fusion des rangs</h2>
+<p style="font-size:28px;color:#475467">« Que prévoit l'article 50 du règlement européen sur l'IA ? » · index p2</p>
+<div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:28px">
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#2563A6">Dense seul</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">1 · proposition, art. 2</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">2 · proposition, art. 47</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">3 · proposition, art. 1</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">4 · proposition, art. 65</p>
+<p style="font-size:24px;line-height:1.35;color:#B5401E;font-weight:600">5 · règlement, art. 50</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #E2DED5;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#2563A6">BM25 seul</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">1 · règlement, art. 112</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">2 · règlement, art. 26</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">3 · règlement, art. 2</p>
+<p style="font-size:24px;line-height:1.35;color:#B5401E;font-weight:600">4 · règlement, art. 50</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D">5 · règlement, art. 3</p>
+</div>
+<div style="background:#FBE9DE;border:2px solid #E4572E;border-radius:16px;padding:24px 28px;display:flex;flex-direction:column;gap:12px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Fusion RRF</p>
+<p style="font-size:24px;line-height:1.35;color:#14213D"><b>1 · art. 50</b> <span style="color:#667085">dense 5 · BM25 12</span></p>
+<p style="font-size:24px;line-height:1.35;color:#14213D"><b>2 · art. 50</b> <span style="color:#667085">dense 14 · BM25 4</span></p>
+<p style="font-size:24px;line-height:1.35;color:#14213D"><b>3 · art. 50</b> <span style="color:#667085">dense 21 · BM25 9</span></p>
+<p style="font-size:24px;line-height:1.35;color:#14213D"><b>4 · art. 50</b> <span style="color:#667085">dense 9 · BM25 24</span></p>
+<p style="font-size:24px;line-height:1.35;color:#14213D"><b>5 · art. 50</b> <span style="color:#667085">dense 24 · BM25 10</span></p>
+</div>
+</div>
+<div style="display:flex;flex-direction:row;gap:32px;align-items:center">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:30px;color:#F7F5F0;background:#14213D;border-radius:16px;padding:24px 32px">RRF(d) = Σ 1 / (60 + rang(d))</p>
+<p style="flex:1;font-size:26px;line-height:1.4;color:#475467">Seuls les rangs comptent : pas besoin de rendre comparables un cosinus et un score BM25. Un passage bien classé <b>par les deux</b> l'emporte.</p>
+</div>
+<aside>2 min. Cette slide présente la recherche hybride par fusion des rangs, sur un exemple réel de l'index de la phase 2 : « Que prévoit l'article 50 du règlement européen sur l'IA ? ». La colonne « Dense seul » remonte surtout la proposition de 2021 (articles 2, 47, 1 et 65), et l'article 50 du règlement n'arrive qu'au rang 5. La recherche dense comprend « règlement sur l'IA », mais pas le numéro. La colonne « BM25 seul » remonte des articles du règlement qui contiennent souvent « article » et « 50 », comme l'article 112 qui renvoie à d'autres articles ; l'article 50 n'y est que quatrième. Il faut souligner qu'aucun extrait de l'article 50 n'est premier dans l'un ou l'autre classement. La colonne « Fusion RRF » ne contient que des passages de l'article 50, avec leurs deux rangs d'origine. Le premier est 5e en dense et 12e en BM25, et le deuxième est 14e en dense et 4e en BM25. La formule additionne, pour chaque passage, 1 / (60 + rang) dans chaque liste. Un passage bien classé par les deux l'emporte sur un passage premier dans une seule. Seuls les rangs comptent, si bien qu'on n'a pas à rendre comparables un cosinus et un score BM25. La constante 60 vient de l'article d'origine : elle atténue l'écart entre les premiers rangs et est peu sensible en pratique.</aside>
+</section>

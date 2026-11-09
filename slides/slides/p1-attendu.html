@@ -1,0 +1,28 @@
+<section id="p1-attendu" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">TP 1 · ce qui est attendu · chunker, encoder, search, prompt</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Quatre composants, quatre contrats</h2>
+<div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:24px">
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">chunker · split_fixed(), chunk(doc)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Morceaux de CHUNK_SIZE caractères de doc.raw_text, un Chunk(text=…, doc_id=doc.id) par morceau.</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#2563A6">split_fixed("abcdefghij", 4, 1)<br>→ ['abcd', 'defg', 'ghij']</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">encoder · encode_passages(), encode_query()</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">self.client.embed, puis chaque vecteur divisé par sa norme : (n,&#160;1024) et (1024,).</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">Après « Recharger le code » : 2 661 passages, vecteurs de dimension 1024</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">search · find(query, k) → list[Hit]</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">encode_query, un score par passage avec self.index.vectors, les k meilleurs du plus au moins proche.</p>
+<p style="font-size:24px;line-height:1.4;color:#2563A6">« À partir de quelle date le RGPD est-il applicable ? » → cnil.html#6 (0,729), rgpd.html#2 (0,719), rgpd.html#0 (0,704)</p>
+</div>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:20px 24px;display:flex;flex-direction:column;gap:8px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;font-weight:700;color:#B5401E">prompt · build(conversation, hits)</p>
+<p style="font-size:24px;line-height:1.4;color:#475467">Un message system : EXTRACTS_PROMPT, son {context} rempli avec le texte des passages ; puis la conversation.</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#2563A6">[m["role"] for m in messages]<br>→ ['system', 'user']</p>
+</div>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#14213D;background:#FBE9DE;border-left:6px solid #E4572E;padding:16px 24px"><b>C'est réussi si</b> l'évaluation donne environ <b>17/41</b> (le LLM seul : 3), dont factuel 5/5. Les autres échecs ouvrent la partie 2.</p>
+<aside>1 min. Cette slide détaille ce qui est attendu au TP 1 : quatre composants, quatre contrats, chacun avec une sortie réelle de la solution pour se vérifier. Le chunker découpe doc.raw_text en morceaux de CHUNK_SIZE caractères, un Chunk par morceau. La fonction pure split_fixed se teste sur une chaîne courte : avec une taille de 4 et un recouvrement de 1, « abcdefghij » donne « abcd », « defg » et « ghij ». On avance de 3 caractères et on s'arrête dès qu'un morceau atteint la fin, sinon on obtiendrait un dernier morceau « j » inutile ; l'onglet Index permet de vérifier chunk. L'encoder appelle self.client.embed puis divise chaque vecteur par sa norme ; après « Recharger le code », on doit voir 2 661 passages et des vecteurs de dimension 1024. La recherche encode la question, calcule un score par passage avec self.index.vectors et renvoie les k meilleurs dans l'ordre décroissant, avec np.argsort. Il faut remarquer que, pour la date du RGPD, le premier résultat vient de l'article Wikipédia sur la CNIL : la recherche dense trouve des passages proches, pas forcément la source qui fait foi. Le prompt produit un message system, EXTRACTS_PROMPT avec son {context} rempli par les passages, puis la conversation : les rôles sont donc system puis user. Le TP est réussi avec environ 17/41, contre 3 pour le LLM seul, dont les 5 questions factuelles ; les autres échecs ouvrent la partie 2, inutile de retoucher le prompt.</aside>
+</section>

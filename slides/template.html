@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><!--TITLE--></title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1526; overflow: hidden; }
+  .stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .25s; }
+  .slide.on { opacity: 1; visibility: visible; }
+  .slide section { position: relative; width: 1920px; height: 1080px; overflow: hidden; box-sizing: border-box;
+                   display: flex; flex-direction: column; }
+  .slide section * { margin: 0; box-sizing: border-box; }
+  .slide section div { display: flex; flex-direction: column; }
+  .slide h1 { font-size: 96px; font-weight: 600; line-height: 1.1; }
+  .slide h2 { font-size: 64px; font-weight: 600; line-height: 1.15; }
+  .slide h3 { font-size: 44px; font-weight: 600; line-height: 1.2; }
+  .slide p { font-size: 32px; font-weight: 400; line-height: 1.4; }
+  .slide a { color: inherit; }
+  .slide table { border-collapse: collapse; width: 100%; }
+  .slide td, .slide th { padding: .35em .6em; text-align: left; vertical-align: top;
+                         border-bottom: 1px solid rgba(20, 33, 61, .18); font-family: inherit; }
+  .slide th { font-weight: 600; }
+  .slide aside { display: none; }
+  .slide x-icon i { display: block; line-height: 1; }
+  .slide p[style*="JetBrains"] { white-space: pre-wrap; }  /* code : espaces conservés */
+
+  /* Vue du public */
+  #audience { position: fixed; inset: 0; }
+  #notes { position: fixed; left: 0; right: 0; bottom: 0; max-height: 40%; overflow: auto; display: none;
+           padding: 18px 24px; background: rgba(13, 21, 38, .94); color: #e4e7ec;
+           font: 17px/1.5 Inter, Arial, sans-serif; }
+  body.notes #notes { display: block; }
+  #bar { position: fixed; right: 16px; bottom: 12px; display: flex; gap: 8px; align-items: center;
+         font: 14px Inter, Arial, sans-serif; color: #c9d1e3; opacity: 0; transition: opacity .3s; }
+  body.active #bar { opacity: 1; }
+  #bar button, #presenter button { background: rgba(255, 255, 255, .12); border: 0; border-radius: 6px; color: inherit;
+                                   font: inherit; padding: 6px 10px; cursor: pointer; }
+
+  /* Vue présentateur : slide courante, slide suivante, notes, chronomètre */
+  #presenter { display: none; position: fixed; inset: 0; box-sizing: border-box; padding: 16px; gap: 16px;
+               grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr;
+               color: #e4e7ec; font-family: Inter, Arial, sans-serif; }
+  body.presenter #presenter { display: grid; }
+  body.presenter #audience, body.presenter #notes, body.presenter #bar { display: none; }
+  #pv-head { grid-column: 1 / 3; display: flex; gap: 24px; align-items: center; font-size: 20px; }
+  #pv-timer { font: 600 32px 'JetBrains Mono', monospace; cursor: pointer; }
+  #pv-count { font-size: 24px; font-weight: 600; }
+  #pv-head .help { margin-left: auto; color: #8c99b8; font-size: 15px; }
+  .pv-box { position: relative; overflow: hidden; background: #000; border-radius: 8px; }
+  #pv-current { min-height: 0; }
+  #pv-side { display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+  #pv-next { aspect-ratio: 16 / 9; flex: none; width: 50%; }
+  .pv-label { color: #8c99b8; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; }
+  #pv-notes { flex: 1; min-height: 0; overflow: auto; font-size: 20px; line-height: 1.45;
+              background: #fff; color: #111; border-radius: 8px; padding: 14px 22px 14px 8px; }
+  #pv-notes ul { margin: 0; padding-left: 1.4em; }
+  #pv-notes li { margin: .35em 0; }
+  #pv-notes li ul { margin-top: .25em; font-size: .94em; color: #333; }
+  #pv-notes strong { color: #000; }
+  #pv-notes code, #notes code { font-family: 'JetBrains Mono', monospace; font-size: .9em; }
+  #notes ul { margin: 0; padding-left: 1.3em; }
+  #notes li { margin: .2em 0; }
+</style>
+</head>
+<body>
+<div id="audience">
+<div class="stage" id="stage">
+<!--SLIDES-->
+</div>
+</div>
+<div id="notes"></div>
+<div id="bar">
+  <button id="prev" aria-label="Slide précédente">←</button>
+  <span id="count"></span>
+  <button id="next" aria-label="Slide suivante">→</button>
+  <button id="toggle-notes" title="Notes de l'orateur (N)">Notes</button>
+  <button id="open-presenter" title="Vue présentateur dans une autre fenêtre (P)">Présentateur</button>
+  <button id="full" title="Plein écran (F)">⛶</button>
+</div>
+<div id="presenter">
+  <div id="pv-head">
+    <span id="pv-count"></span>
+    <span id="pv-timer" title="Cliquer pour remettre à zéro">00:00</span>
+    <button id="pv-prev">←</button><button id="pv-next-btn">→</button>
+    <span class="help">← → ou espace : naviguer · les deux fenêtres restent synchronisées</span>
+  </div>
+  <div class="pv-box" id="pv-current"></div>
+  <div id="pv-side">
+    <div class="pv-label">Slide suivante</div>
+    <div class="pv-box" id="pv-next"></div>
+    <div class="pv-label">Notes</div>
+    <div id="pv-notes"></div>
+  </div>
+</div>
+<script>
+const isPresenter = new URLSearchParams(location.search).has('presenter');
+const stage = document.getElementById('stage');
+let slides = [...stage.querySelectorAll('.slide')];
+let nextSlides = [];
+let current = 0;
+let peer = isPresenter ? window.opener : null;  // l'autre fenêtre (public ou présentateur)
+
+function place(stageEl, box) {
+  const w = box ? box.clientWidth : innerWidth, h = box ? box.clientHeight : innerHeight;
+  const scale = Math.min(w / 1920, h / 1080);
+  stageEl.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+}
+
+function fit() {
+  if (isPresenter) {
+    place(stage, document.getElementById('pv-current'));
+    place(document.getElementById('stage-next'), document.getElementById('pv-next'));
+  } else {
+    place(stage);
+  }
+}
+
+function go(i, fromPeer = false) {
+  current = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, k) => s.classList.toggle('on', k === current));
+  nextSlides.forEach((s, k) => s.classList.toggle('on', k === current + 1));
+  const count = `${current + 1} / ${slides.length}`;
+  const aside = slides[current].querySelector('aside');
+  const notes = aside ? aside.innerHTML.trim() : '';
+  document.getElementById('count').textContent = count;
+  document.getElementById('notes').innerHTML = notes;
+  document.getElementById('pv-count').textContent = count;
+  document.getElementById('pv-notes').innerHTML = notes || '<p>(pas de notes)</p>';
+  document.getElementById('pv-notes').scrollTop = 0;
+  history.replaceState(null, '', location.search + '#' + (current + 1));
+  if (!fromPeer && peer && !peer.closed) peer.postMessage({ rag: 'go', i: current }, '*');
+}
+
+// L'autre fenêtre a changé de slide : suivre
+addEventListener('message', e => {
+  if (!e.data || e.data.rag !== 'go') return;
+  peer = e.source;
+  go(e.data.i, true);
+});
+
+function openPresenter() {
+  const url = location.href.split('#')[0].split('?')[0] + '?presenter#' + (current + 1);
+  peer = window.open(url, 'rag-presenter', 'popup,width=1400,height=860');
+}
+
+// Connecteurs : une ligne (avec une flèche, sauf head="none") entre (x1, y1) et (x2, y2),
+// dans le repère du bloc parent
+function drawConnectors() {
+  const ns = 'http://www.w3.org/2000/svg';
+  for (const c of document.querySelectorAll('x-connector')) {
+    const host = c.parentElement, color = c.style.color || '#14213D';
+    const width = parseFloat(c.style.borderWidth) || 3, dashed = c.style.borderStyle === 'dashed';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('style', 'position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none');
+    const [x1, y1, x2, y2] = ['x1', 'y1', 'x2', 'y2'].map(a => parseFloat(c.getAttribute(a)));
+    const line = document.createElementNS(ns, 'line');
+    Object.entries({x1, y1, x2, y2, stroke: color, 'stroke-width': width, 'stroke-linecap': 'round'})
+      .forEach(([k, v]) => line.setAttribute(k, v));
+    if (dashed) line.setAttribute('stroke-dasharray', `${width * 3} ${width * 2.5}`);
+    svg.appendChild(line);
+    if (c.getAttribute('head') !== 'none') {
+      const angle = Math.atan2(y2 - y1, x2 - x1), size = 6 + width * 3, spread = Math.PI / 7;
+      const head = document.createElementNS(ns, 'path');
+      const p = a => `${x2 - size * Math.cos(angle + a)} ${y2 - size * Math.sin(angle + a)}`;
+      head.setAttribute('d', `M ${p(-spread)} L ${x2} ${y2} L ${p(spread)}`);
+      Object.entries({fill: 'none', stroke: color, 'stroke-width': width, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'})
+        .forEach(([k, v]) => head.setAttribute(k, v));
+      svg.appendChild(head);
+    }
+    host.appendChild(svg);
+    c.remove();
+  }
+}
+
+function setupPresenter() {
+  document.body.classList.add('presenter');
+  document.title = 'Présentateur — ' + document.title;
+  document.getElementById('pv-current').appendChild(stage);
+  const copy = stage.cloneNode(true);
+  copy.id = 'stage-next';
+  document.getElementById('pv-next').appendChild(copy);
+  nextSlides = [...copy.querySelectorAll('.slide')];
+  const timer = document.getElementById('pv-timer');
+  let start = Date.now();
+  timer.onclick = () => { start = Date.now(); };
+  setInterval(() => {
+    const s = Math.floor((Date.now() - start) / 1000);
+    timer.textContent = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  }, 500);
+  document.getElementById('pv-prev').onclick = () => go(current - 1);
+  document.getElementById('pv-next-btn').onclick = () => go(current + 1);
+}
+
+function toggleFull() {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen();
+}
+
+addEventListener('resize', fit);
+addEventListener('keydown', e => {
+  if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) go(current + 1);
+  else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) go(current - 1);
+  else if (e.key === 'Home') go(0);
+  else if (e.key === 'End') go(slides.length - 1);
+  else if ((e.key === 'n' || e.key === 'N') && !isPresenter) document.body.classList.toggle('notes');
+  else if ((e.key === 'p' || e.key === 'P') && !isPresenter) openPresenter();
+  else if (e.key === 'f' || e.key === 'F') toggleFull();
+  else return;
+  e.preventDefault();
+});
+let touchX = null;
+addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
+  touchX = null;
+});
+let idle;
+addEventListener('mousemove', () => {
+  document.body.classList.add('active');
+  clearTimeout(idle);
+  idle = setTimeout(() => document.body.classList.remove('active'), 2000);
+});
+document.getElementById('prev').onclick = () => go(current - 1);
+document.getElementById('next').onclick = () => go(current + 1);
+document.getElementById('toggle-notes').onclick = () => document.body.classList.toggle('notes');
+document.getElementById('open-presenter').onclick = openPresenter;
+document.getElementById('full').onclick = toggleFull;
+
+drawConnectors();
+if (isPresenter) setupPresenter();
+fit();
+go((parseInt(location.hash.slice(1), 10) || 1) - 1, true);
+</script>
+</body>
+</html>

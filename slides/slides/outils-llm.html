@@ -1,0 +1,41 @@
+<section id="outils-llm" data-transition="fade" style="background:#EEF2F6;color:#14213D;font-family:'Inter', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B5401E">Mode d'emploi · rag/src/llm.py</p>
+<h2 style="font-family:'Space Grotesk', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;color:#14213D">Générer du texte avec la classe LLM</h2>
+<div style="display:flex;flex-direction:row;gap:40px">
+<div style="width:940px;background:#14213D;border-radius:20px;padding:24px 32px;display:flex;flex-direction:column;gap:0px">
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># rewriter, router, sql, catalog : self.llm</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">llm = self.llm  <span style="color:#8C99B8"># adresse, modèle : config</span></p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F2A65A">llm.ask("Définis un embedding en une phrase.")</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># 'Un embedding est une représentation vectorielle…'</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">CONSIGNE = "Tu réponds en une phrase, en français."</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">messages = [</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;&#160;&#160;&#160;{"role": "system", "content": CONSIGNE},</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;&#160;&#160;&#160;{"role": "user", "content": "Qu'est-ce que la CNIL ?"},</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">]</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F2A65A">llm.chat(messages, max_tokens=80)</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8"># "La CNIL est l'autorité administrative française</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#8C99B8">#&#160;&#160;chargée de veiller au respect des règles…"</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F2A65A">for morceau in llm.stream(messages):</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#F7F5F0">&#160;&#160;&#160;&#160;print(morceau, end="")  <span style="color:#8C99B8"># au fil de l'eau</span></p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;flex-direction:row;background:#D0D5DD"><p style="width:55%;padding:8px 14px;font-size:24px;font-weight:600;line-height:1.4;color:#14213D">méthode</p><p style="width:45%;padding:8px 14px;font-size:24px;font-weight:600;line-height:1.4;color:#14213D">renvoie</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:55%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">chat(messages)</p><p style="width:45%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">la réponse (str)</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:55%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">stream(messages)</p><p style="width:45%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">des morceaux de texte</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:55%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">ask(texte)</p><p style="width:45%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">chat d'un seul message</p></div>
+<div style="display:flex;flex-direction:row;background:#FDFCF9;border-top:1px solid #D0D5DD"><p style="width:55%;padding:8px 14px;font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">json(messages, Modèle)</p><p style="width:45%;padding:8px 14px;font-size:24px;line-height:1.4;color:#14213D">un objet Pydantic (TP 4)</p></div>
+</div>
+<p style="font-size:24px;line-height:1.4;color:#475467">Une conversation est une liste de messages : <b>system</b> pour la consigne, <b>user</b> et <b>assistant</b> pour les tours de parole.</p>
+<div style="background:#FDFCF9;border:1px solid #D0D5DD;border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;gap:2px">
+<p style="font-size:24px;font-weight:600;color:#14213D">Le pipeline renvoie le flux :</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">return Answer(</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">&#160;&#160;&#160;&#160;stream=self.llm.stream(messages),</p>
+<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;line-height:1.4;color:#14213D">&#160;&#160;&#160;&#160;sources=hits)</p>
+</div>
+</div>
+</div>
+<aside>1 min 30. Cette slide, la septième du mode d'emploi, est la plus importante des huit : elle présente la classe LLM de rag/src/llm.py. La classe LLM est le seul point de contact avec le modèle ; elle lit l'adresse et le nom du modèle dans la configuration, et le rewriter, le routeur, sql et catalog la reçoivent dans self.llm. La méthode ask envoie un texte seul : ici, elle définit un embedding en une phrase. La méthode chat prend une liste de messages et renvoie la réponse complète sous forme de chaîne. Chaque message a un rôle et un contenu : system pour la consigne, user pour l'utilisateur, assistant pour les réponses précédentes du modèle. L'exemple donne la consigne « Tu réponds en une phrase, en français », demande ce qu'est la CNIL et limite la réponse à 80 tokens ; la sortie affichée est réelle. La méthode stream renvoie la même réponse morceau par morceau, pour l'afficher au fil de l'eau. Le tableau résume les quatre méthodes, dont json, qui oblige le modèle à remplir un objet Pydantic et servira au TP 4. Chat et stream acceptent temperature et max_tokens, avec par défaut les valeurs de config.toml. L'encadré du bas montre que le pipeline passe le flux à Answer avec les sources, et que c'est l'interface qui l'affiche. En cas de serveur injoignable ou de modèle inconnu, LLMError donne un message explicite, et run_tools, décrit dans le README, permet d'aller plus loin.</aside>
+</section>
