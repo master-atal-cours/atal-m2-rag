@@ -16,6 +16,7 @@ import hashlib
 import io
 import re
 import shutil
+import ssl
 import sys
 import time
 import tomllib
@@ -32,6 +33,11 @@ DEST = ROOT / "data" / "corpus"
 USER_AGENT = "atal-m2-rag-course/1.0 (cours M2 ATAL; +https://github.com/master-atal-cours/atal-m2-rag)"
 TIMEOUT_S = 90
 RETRIES = 3
+
+# Magasin de certificats du système, complété par les certificats intermédiaires que
+# certains serveurs n'envoient pas (voir scripts/intermediates.pem).
+SSL_CONTEXT = ssl.create_default_context()
+SSL_CONTEXT.load_verify_locations(cafile=Path(__file__).resolve().parent / "intermediates.pem")
 
 # Signatures attendues par extension : détecte une page d'erreur ou un
 # anti-robot renvoyé à la place du vrai fichier.
@@ -85,7 +91,9 @@ def fetch(doc: dict) -> bytes:
     for attempt in range(1, RETRIES + 1):
         try:
             request = urllib.request.Request(doc["url"], headers=headers)
-            with urllib.request.urlopen(request, timeout=TIMEOUT_S) as response:
+            with urllib.request.urlopen(
+                request, timeout=TIMEOUT_S, context=SSL_CONTEXT
+            ) as response:
                 data = response.read()
             if error := check_content(doc["path"], data):
                 raise ValueError(error)
@@ -158,7 +166,9 @@ def install_zip(source: str, documents: list[dict]) -> None:
     """Installe le corpus depuis une archive locale ou distante."""
     if re.match(r"https?://", source):
         request = urllib.request.Request(source, headers={"User-Agent": USER_AGENT})
-        with urllib.request.urlopen(request, timeout=TIMEOUT_S * 4) as response:
+        with urllib.request.urlopen(
+            request, timeout=TIMEOUT_S * 4, context=SSL_CONTEXT
+        ) as response:
             archive = zipfile.ZipFile(io.BytesIO(response.read()))
     else:
         archive = zipfile.ZipFile(source)
