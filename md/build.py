@@ -1,12 +1,12 @@
 """Construit la présentation statique (docs/index.html) à partir des slides de ce dossier.
 
-    python slides/build.py
+    python md/build.py
 
-slides/deck.json donne l'ordre des slides, slides/slides/*.html leur contenu,
-slides/notes.md les notes de l'orateur (listes à puces) et slides/assets/ les images.
+md/deck.json donne l'ordre des slides, md/slides/*.html leur contenu,
+md/notes.md les notes de l'orateur (listes à puces) et md/assets/ les images.
 Le résultat, dans docs/, est publié par GitHub Pages.
 
-La page vient de slides/template.html. Dans la présentation : flèches, espace ou glissement
+La page vient de md/template.html. Dans la présentation : flèches, espace ou glissement
 pour avancer ; N affiche les notes ; P ouvre la vue présentateur (slide courante, suivante,
 notes, chronomètre) dans une autre fenêtre, synchronisée ; F passe en plein écran.
 """
@@ -22,7 +22,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "docs"
 
-# Images de la présentation : identifiant dans les slides -> fichier de slides/assets/
+# Images de la présentation : identifiant dans les slides -> fichier de md/assets/
 ASSETS = {
     "/_blob/14521be99e5b10b51db422624c0f7c6c": "assets/logo-bee4win.png",
     "/_blob/8a34cbbf67a84a6721606a6e971aadfc": "assets/logo-universite-de-nantes.png",
@@ -41,7 +41,7 @@ def icon(match: re.Match) -> str:
 
 
 def read_notes() -> dict[str, list[tuple[int, str]]]:
-    """slides/notes.md : une section « ## id-de-la-slide » par slide, puis des puces « - » (deux niveaux)."""
+    """md/notes.md : une section « ## id-de-la-slide » par slide, puis des puces « - » (deux niveaux)."""
     notes: dict[str, list[tuple[int, str]]] = {}
     path = HERE / "notes.md"
     if not path.exists():

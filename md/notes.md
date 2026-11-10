@@ -1,7 +1,7 @@
 # Notes de l'orateur
 
-Une section par slide (« ## » suivi de l'identifiant de la slide, dans slides/slides/), avec des puces
-sur deux niveaux. Ces notes s'affichent dans la vue présentateur (touche P) ; slides/build.py les
+Une section par slide (« ## » suivi de l'identifiant de la slide, dans md/slides/), avec des puces
+sur deux niveaux. Ces notes s'affichent dans la vue présentateur (touche P) ; md/build.py les
 intègre à la présentation.
 
 ## cover
