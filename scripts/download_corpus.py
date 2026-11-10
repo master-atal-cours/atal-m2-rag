@@ -227,8 +227,8 @@ def report(results: list[Result]) -> int:
         )
     if failed:
         print(
-            f"{len(failed)} fichier(s) indisponible(s). Réessayez plus tard, ou demandez "
-            "l'archive miroir à l'enseignant : python scripts/download_corpus.py --zip <archive>"
+            f"{len(failed)} fichier(s) indisponible(s). Réessayez plus tard, ou installez "
+            "l'archive miroir : python scripts/download_corpus.py --zip <archive>"
         )
         return 1
     return 0
@@ -246,9 +246,9 @@ def main() -> int:
     parser.add_argument("--force", action="store_true", help="re-télécharge tout")
     parser.add_argument("--only", help="ne traite que les chemins contenant ce texte")
     parser.add_argument("--zip", help="installe depuis une archive (chemin ou URL)")
-    parser.add_argument("--make-zip", help="(enseignant) crée l'archive miroir")
+    parser.add_argument("--make-zip", help="crée l'archive miroir")
     parser.add_argument("--update-hashes", action="store_true",
-                        help="(enseignant) recalcule les sha256 du manifeste")
+                        help="recalcule les sha256 du manifeste")
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
 
