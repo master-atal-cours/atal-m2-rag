@@ -49,6 +49,7 @@ class System:
         self.resources = Resources()
         self.pipeline: Any = None
         self.status = ""
+        self.error = False
         self.lock = threading.Lock()
         self.reload()
 
@@ -67,11 +68,13 @@ class System:
                     f"Code chargé · {len(index.chunks)} passages, vecteurs de dimension {dim}, "
                     f"{len(index.documents)} documents"
                 )
+                self.error = False
             except Exception:  # noqa: BLE001 - une erreur dans le code des étudiants ne doit pas tout arrêter
                 error = traceback.format_exc(limit=-3)
                 print(error, file=sys.stderr)
                 kept = " (la version précédente reste active)" if self.pipeline else ""
                 self.status = f"⚠ Erreur au chargement du code{kept} :\n```\n{error}\n```"
+                self.error = True
             return self.status
 
 
@@ -283,12 +286,20 @@ def _index_tab(system: System) -> None:
 
 def launch(port: int = 7860, share: bool = False) -> None:
     system = System()
+    def reload_code() -> str:
+        """Recharge le code : le résumé en notification, une erreur sous le titre."""
+        status = system.reload()
+        if system.error:
+            return status
+        gr.Info(status)
+        return ""
+
     with gr.Blocks(title="Chatbot RAG") as demo:
-        gr.Markdown("## Chatbot RAG — réglementation de l'IA en France")
         with gr.Row():
-            status = gr.Markdown(system.status)
+            gr.Markdown("## M2 ATAL · Développement logiciel et IA en entreprise")
             reload = gr.Button("Recharger le code", scale=0)
-        reload.click(system.reload, outputs=status)
+        errors = gr.Markdown(system.status if system.error else "")
+        reload.click(reload_code, outputs=errors)
         with gr.Tab("Chat"):
             _chat_tab(system)
         with gr.Tab("Évaluation"):
