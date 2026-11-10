@@ -31,9 +31,17 @@ Serveur de l'université : créer `config.local.toml` (ignoré par git) :
 [api]
 host = "blabla.univ-nantes.fr"
 port = 8000
+
+[embeddings]            # seulement si les embeddings sont servis sur un autre port
+port = 8001
 ```
 
-Embeddings sur un autre port : `[embeddings]` puis `port = …`. Sans API d'embeddings : `uv sync --extra local`, puis `provider = "local"` dans `[embeddings]`.
+Serveur sans modèle d'embeddings : les calculer sur votre machine avec `uv sync --extra local` et
+
+```toml
+[embeddings]
+provider = "local"
+```
 
 ```bash
 uv run rag check                                    # deux coches : LLM et embeddings
